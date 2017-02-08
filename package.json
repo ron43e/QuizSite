@@ -1,0 +1,22 @@
+{
+  "name": "quizsite",
+  "version": "1.0.0",
+  "description": "Site to test employees",
+  "main": "src/js/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ron43e/quickstart.git"
+  },
+  "keywords": [
+    "quiz"
+  ],
+  "author": "James",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ron43e/quickstart/issues"
+  },
+  "homepage": "https://github.com/ron43e/quickstart#readme"
+}

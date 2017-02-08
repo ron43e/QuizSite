@@ -1,0 +1,18 @@
+<form name="emailForm" class="login" >
+  <div class="formholder">
+    <div class="randompad">
+      <fieldset>
+        <input id="txtEmail" class="form-control" ng-class="{ 'has-error' : emailForm.email.$invalid && !emailForm.email.$pristine }" name="email" ng-model="user.email" ng-pattern="emailFormat" type="email" placeholder="email" required novalidate />
+        <input id="txtPassword" class="form-control" ng-class="{ 'has-error' : emailForm.password.$invalid && !emailForm.password.$pristine }" name="password" ng-model="user.password" type="password" placeholder="password" required novalidate/>
+        <div role="alert">
+          <span class="error" ng-show="emailForm.email.$error.required && !emailForm.email.$pristine">email required!</span>
+          <span class="error" ng-show="emailForm.email.$error.pattern && !emailForm.email.$pristine">Not a valid email!</span>
+          <span class="error" ng-show="errorCode == 'auth/user-not-found'">Invalid email or password</span>
+        </div>
+        <input id="btnLogin" ng-class="{ 'btnDisabled' : emailForm.$invalid && !emailForm.$pristine }" ng-click="logIn()" ng ng-disabled="emailForm.$invalid" type="button" value="Log In" />
+      </fieldset>
+      <tt>emailForm.email.$valid = {{ emailForm.email.$valid }}</tt>
+      <tt>{{ error.code }}</tt>
+    </div>
+  </div>
+</div>

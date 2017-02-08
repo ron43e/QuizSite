@@ -1,0 +1,40 @@
+<style>
+	table {
+		margin: 20px auto 0;
+	}
+	table,
+	td, th {
+		border: 1px solid grey;
+		border-collapse: collapse;
+		padding: 5px;
+	}
+	th {
+		color: #1abc9c;
+	}
+	tr:nth-child(even) {
+		background-color: #1abc9c
+	}
+</style>
+
+<div id="results" ng-controller="resultsCtrl">
+	<span>Hello {{ user.name }}, below are your tests results:</span>
+	<span>test results</span>
+	<table>
+		<tr>
+			<th>Date</th>
+			<th>Test</th>
+			<th>Score</th>
+		</tr>
+		<tr ng-repeat="x in testResults">
+			<td>{{ x.date }}</td>
+			<td>{{ x.test }}</td>
+			<td style="text-align: right;">{{ x.score }}</td>
+			<!--<td ng-if="$odd" style="background-color:#f1f1f1">{{ x.date }}</td>
+			<td ng-if="$even">{{ x.date }}</td>
+			<td ng-if="$odd" style="background-color:#f1f1f1"> {{ x.test }}</td>
+			<td ng-if="$even">{{ x.test }}</td>
+			<td ng-if="$odd" style="background-color:#f1f1f1"> {{ x.score }}</td>
+			<td ng-if="$even">{{ x.score }}</td>-->
+		</tr>
+	</table>
+</div>
