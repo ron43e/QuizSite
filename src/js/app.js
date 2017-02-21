@@ -1,7 +1,7 @@
 
 var app = angular.module('myApp', ['ngRoute', 'ngMaterial'])
 
-  .run(['$rootScope', '$location', 'Auth', function ($rootScope, $location, Auth) {
+  .run(['$rootScope', '$location', 'Auth', function ($rootScope, $location, Auth, $cookies) {
     $rootScope.loggedIn = false;
     $rootScope.admin = true;
     $rootScope.currentTest = '';
