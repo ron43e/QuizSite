@@ -1,0 +1,656 @@
+<script type="text/javascript">
+	window.jQuery || document.write('<script src="js/jquery-3.1.1.min.js"><\/script>')
+
+</script>
+<script type="text/javascript">
+	var testNum = 0;
+		var numberOfTests = 0;
+		var tests = 0;
+		var questionNum = 0;
+		var questID = 0;
+		var numberOfQuestions = 0;
+		var questions;
+		var original = new Array();
+		var changed = new Boolean("false");
+
+		$(document).ready(function () {
+		getTests(testNum);
+		enable_btn("#newBtn");
+
+		/***************************************************************
+		*
+		* HANDLE BUTTON PRESSED
+		*
+		***************************************************************/
+		//
+		// handle the "New" button
+		//
+		$("#newBtn").click(function () {
+			questID = -1;
+			clearQuestion();
+			showNewQuestNum();
+			disable_btn("#newBtn");
+			enable_btn("#saveBtn");
+			disable_btn("#editBtn");
+			disable_btn("#prevBtn");
+			disable_btn("#nxtBtn");
+		}); // end of handling new button
+
+		// handle save button click
+		$("#saveBtn").click(function () {
+			// check to see if all fields have something in them
+			if (checkQA() == 1) { // all fields have content
+				var s = $("#txtCorrectAns").val();
+				var correct = parseInt(s);
+				if ((correct > 0) && (correct < 5)) {
+					testNum = readDropDown();
+					// if questID is -1 this is a new question
+					if ((questID == -1) || (numberOfQuestions == 0)) {
+						saveQuestion(testNum);
+					}
+					// otherwise you are updating a question
+					else {
+						updateQuestion(questID);
+					}
+					disable_btn("#saveBtn");
+					if ($("txtQuestion").is(".red")) {
+						$("input[type='text']").toggleClass("red");
+					}
+				}
+				else {
+					alert("Correct Ans must be between 1 and 4");
+				}
+			}
+			else {
+				alert("You must complete all fields");
+			}
+		});
+
+		//
+		// handle edit button click
+		//
+		$("#editBtn").click(function () {
+			// edit question
+			testNum = readDropDown();
+			$("input[type='text']").toggleClass("red");
+		});
+
+		//
+		// handle delete button click
+		//
+		$("#delBtn").click(function () {
+			// delete question
+			testNum = readDropDown();
+			// check to see if deleting from 'new' button. if so, questID = -1
+			if (questID != -1) {
+				var r = confirm("Delete?");
+				if (r == true) {
+					deleteQuestion(testNum, questID);
+					testNum = readDropDown();
+					getQuestions(testNum);
+					$("#savedMsg").hide();
+				}
+			}
+			else {
+				getTests(testNum);
+			}
+		});
+
+		//
+		// handled the 'Next' button
+		//
+		$("#nxtBtn").click(function () {
+			if (questionNum < (numberOfQuestions - 1)) {
+				questionNum++;
+				writeQuestion();
+				setPrevNextStatus();
+			}
+			showQuestNum();
+			$("#savedMsg").hide();
+		}); // end of handling 'Next' button
+
+		//
+		// handled the 'Prev' button
+		//
+		$("#prevBtn").click(function () {
+			if (questionNum > 0) {
+				questionNum--;
+				writeQuestion();
+				setPrevNextStatus();
+			}
+			showQuestNum();
+			$("#savedMsg").hide();
+		}); // end of handling 'Prev' button
+
+		/***************************************************************
+		*
+		*	QUESTION AND ANSWER KEY OPERATIONS
+		*
+		***************************************************************/
+		// handle keydup in question field
+		$("#txtquestion").keyup(function () {
+			var contents = $("#txtQuestion").val();
+			if (contents != original[0]) {
+				changed = true;
+				enable_btn("#saveBtn");
+			}
+		}); // end of 'question' keyup
+
+		// handle keydup in ans1 field
+		$("#txtAns1").keyup(function () {
+			var contents = $("#txtAns1").val();
+			if (contents != original[1]) {
+				changed = true;
+				enable_btn("#saveBtn");
+			}
+		}); // end of 'ans1' keyup
+
+		// handle keydup in ans2 field
+		$("#txtAns2").keyup(function () {
+			var contents = $("#txtAns2").val();
+			if (contents != original[2]) {
+				changed = true;
+				enable_btn("#saveBtn");
+			}
+		}); // end of 'ans2' keyup
+
+		// handle keydup in ans3 field
+		$("#txtAns3").keyup(function () {
+			var contents = $("#txtAns3").val();
+			if (contents != original[3]) {
+				changed = true;
+				enable_btn("#saveBtn");
+			}
+		}); // end of 'ans3' keyup
+
+		// handle keydup in ans4 field
+		$("#txtAns4").keyup(function () {
+			var contents = $("#txtAns4").val();
+			if (contents != original[4]) {
+				changed = true;
+				enable_btn("#saveBtn");
+			}
+		}); // end of 'ans4' keyup
+
+		// handle keydup in correctAns field
+		$("#txtCorrectAns").keyup(function () {
+			var contents = $("#txtCorrectAns").val();
+			if (contents != original[5]) {
+				changed = true;
+				enable_btn("#saveBtn");
+			}
+		}); // end of 'correctAns' keyup
+
+		});                  // end of document ready
+
+	/***************************************************************
+	*
+	*	TEST OPERATIONS
+	*
+	***************************************************************/
+		// get the testID from the dropdown
+		function readDropDown() {
+		var dd = document.getElementById("testList");
+		var test = dd.options[dd.selectedIndex].value;
+		return test;
+		}
+
+		// clear original array
+		function clearOriginals() {
+		for (i = 0; i < 6; i++)
+			original[i] = "";
+		}
+
+		//
+		// get number of tests
+		//
+		function getTests(t) {
+		disableButtons();
+		// this ajax gets number of tests
+		// $.ajax({
+		// 	type: "POST",
+		// 	url: "AddQuestions.aspx/GetNumOfTests",
+		// 	data: JSON.stringify({}),
+		// 	contentType: "application/json; charset=utf-8",
+		// 	dataType: "json",
+		// 	success: function (str) {
+		// 		// Retrieve the first question, display it, and start the timer
+		// 		numberOfTests = str.d;
+		// 		if (numberOfTests == 0) {
+		// 			disableFields();
+		// 			alert("Please enter a test.");
+		// 		}
+		// 		else {
+		// 			// get the test number from the dropdown
+		// 			testNum = readDropDown();
+		// 			// disable all of the question fields
+		// 			getQuestions(testNum);
+		// 		}
+		// 	},
+		// 	error: function (err, response) {
+		// 		alert("Get numOfTests error: " + err.responseText);
+		// 	}
+		// });         // end of the ajax call to get the questions
+		}
+
+		function testDropDown() {
+		var tl = document.getElementById('testList');
+		var test = tl.options[tl.selectedIndex].value;
+		questionNum = 0;
+		numberOfQuestions = 0;
+		getQuestions(test);
+		}
+
+	/***************************************************************
+	*
+	* QUESTION OPERATIONS
+	*
+	***************************************************************/
+		// read questions for a test
+		function getQuestions(t) {
+		changed = false;
+		enable_btn("#newBtn");
+		// this ajax gets all of the questions
+		// $.ajax({
+		// 	type: "POST",
+		// 	url: "AddQuestions.aspx/GetAllQuestions",
+		// 	data: JSON.stringify({ testID: t }),
+		// 	contentType: "application/json; charset=utf-8",
+		// 	dataType: "json",
+		// 	success: function (str) {
+		// 		// Retrieve the first question, display it, and start the timer
+		// 		questions = str.d;
+		// 		numberOfQuestions = questions.length;
+		// 		if (numberOfQuestions > 0) {
+		// 			writeQuestion();
+		// 			showQuestNum();
+		// 		}
+		// 		else {
+		// 			clearQuestion();
+		// 			showNoQuest();
+		// 		}
+		// 		setPrevNextStatus();
+		// 	},
+		// 	error: function (err, response) {
+		// 		alert("Get Quests error: " + err.responseText);
+		// 	}
+		// });         // end of the ajax call to get the questions
+		}
+
+		// save a question
+		function saveQuestion(t) {
+		var q = $("#txtquestion").val();
+		var a1 = $("#txtAns1").val();
+		var a2 = $("#txtAns2").val();
+		var a3 = $("#txtAns3").val();
+		var a4 = $("#txtAns4").val();
+		var ca = $("#txtCorrectAns").val();
+		// add new question to test
+		// $.ajax({
+		// 	type: "POST",
+		// 	url: "AddQuestions.aspx/saveNewQuest",
+		// 	data: JSON.stringify({ testID: t, quest: q, a1: a1, a2: a2, a3: a3, a4: a4, ca: ca }),
+		// 	contentType: "application/json; charset=utf-8",
+		// 	dataType: "json",
+		// 	success: function (str) {
+		// 		var test = readDropDown();
+		// 		getQuestions(test);
+		// 		questionNum = numberOfQuestions;
+		// 		$("#savedMsg").show().delay(1500).fadeOut();
+		// 	},
+		// 	error: function (err, response) {
+		// 		alert("Save error: " + err.responseText);
+		// 	}
+		// });               // end of the ajax call to save a new question
+		}  // end of saveNewQuestion
+
+		// update a question
+		function updateQuestion(quest) {
+		var q = $("#txtquestion").val();
+		var a1 = $("#txtAns1").val();
+		var a2 = $("#txtAns2").val();
+		var a3 = $("#txtAns3").val();
+		var a4 = $("#txtAns4").val();
+		var ca = $("#txtCorrectAns").val();
+		// $.ajax({
+		// 	type: "POST",
+		// 	url: "AddQuestions.aspx/updateQuestion",
+		// 	data: JSON.stringify({ questID: quest, quest: q, a1: a1, a2: a2, a3: a3, a4: a4, ca: ca }),
+		// 	contentType: "application/json; charset=utf-8",
+		// 	dataType: "json",
+		// 	success: function (str) {
+		// 		var test = readDropDown();
+		// 		getQuestions(test);
+		// 	},
+		// 	error: function (err, response) {
+		// 		alert("Update error: " + err.responseText);
+		// 	}
+		// });    // end of the ajax call to delete question
+		}  // end of deleteQuestion
+
+		// delete a new question
+		function deleteQuestion(test, quest) {
+		// $.ajax({
+		// 	type: "POST",
+		// 	url: "AddQuestions.aspx/deleteQuestion",
+		// 	data: JSON.stringify({ testID: test, questID: quest }),
+		// 	contentType: "application/json; charset=utf-8",
+		// 	dataType: "json",
+		// 	success: function (str) {
+		// 		if (--questionNum < 0) {
+		// 			questionNum = 0;
+		// 			questID = -1;
+		// 		}
+		// 		getQuestions(readDropDown());
+		// 	},
+		// 	error: function (err, response) {
+		// 		alert("Delete error: " + err.responseText);
+		// 	}
+		// });     // end of the ajax call to delete question
+		}  // end of deleteQuestion
+
+		// handle dropdown change
+		function testList_Changed() {
+		testNum = readDropDown();
+		getQuestions(testNum);
+		}
+
+
+	/***************************************************************
+	*
+	* MISC FUNCTIONS
+	*
+	***************************************************************/
+		//
+		// Show question number - number of questions
+		//
+		function showQuestNum() {
+		var j = questionNum + 1;
+		var s = "Question " + j + " of " + numberOfQuestions;
+		}
+
+		//
+		// Show what new question number will be
+		//
+		function showNewQuestNum() {
+		var j = numberOfQuestions + 1;
+		var s = "Will be question " + j;
+		$("#questNo").text(s);
+		}
+
+		//
+		// Show 'No Questions'
+		//
+		function showNoQuest() {
+		$("#questNo").text("No Questions");
+		}
+
+		// Write question to screen
+		function writeQuestion() {
+		questID = questions[questionNum].questID;
+		$("#txtquestion").val(questions[questionNum].question);
+		$("#txtAns1").val(questions[questionNum].ans1);
+		$("#txtAns2").val(questions[questionNum].ans2);
+		$("#txtAns3").val(questions[questionNum].ans3);
+		$("#txtAns4").val(questions[questionNum].ans4);
+		$("#txtCorrectAns").val(questions[questionNum].correct);
+		original[0] = questions[questionNum].question;
+		original[1] = questions[questionNum].ans1;
+		original[2] = questions[questionNum].ans2;
+		original[3] = questions[questionNum].ans3;
+		original[4] = questions[questionNum].ans4;
+		original[5] = questions[questionNum].correct;
+		}
+
+		// clear question fields
+		function clearQuestion() {
+		$("#txtquestion").val("");
+		$("#txtAns1").val("");
+		$("#txtAns2").val("");
+		$("#txtAns3").val("");
+		$("#txtAns4").val("");
+		$("#txtCorrectAns").val("");
+		clearOriginals();
+		}
+
+		// disable the question fields
+		function disableFields() {
+		disable_btn("#txtquestion");
+		disable_btn("#txtAns1");
+		disable_btn("#txtAns2");
+		disable_btn("#txtAns3");
+		disable_btn("#txtAns4");
+		disable_btn("#txtCorrectAns");
+		//			$("#txtCorrectAns").attr("disabled", "disabled");
+		}
+
+		// enable the question fields
+		function enableFields() {
+		$("#txtquestion").removeAttr("disabled");
+		$("#txtAns1").removeAttr("disabled");
+		$("#txtAns2").removeAttr("disabled");
+		$("#txtAns3").removeAttr("disabled");
+		$("#txtAns4").removeAttr("disabled");
+		$("#txtCorrectAns").removeAttr("disabled");
+		}
+
+		// disable all buttons
+		function disableButtons() {
+		disable_btn("#saveBtn");
+		disable_btn("#delBtn");
+		disable_btn("#editBtn");
+		disable_btn("#prevBtn");
+		disable_btn("#nxtBtn");
+		$("#savedMsg").hide();
+		}
+
+		// enable all buttons
+		function enableButtons() {
+		enable_btn("#newBtn");
+		enable_btn("#saveBtn");
+		enable_btn("#delBtn");
+		enable_btn("#editBtn");
+		enable_btn("#prevBtn");
+		enable_btn("#nxtBtn");
+		$("#savedMsg").hide();
+		}
+
+		// handle button status
+		function setPrevNextStatus() {
+		if (numberOfQuestions > 0) {
+			enable_btn("#delBtn");
+			enable_btn("#editBtn");
+			disable_btn("#saveBtn");
+			if ($("#txtquestion").is(".red")) {
+				$("input[type='text']").toggleClass("red");
+			}
+			if (questionNum > 0)
+				enable_btn("#prevBtn");
+			else
+				disable_btn("#prevBtn");
+			if (questionNum < (numberOfQuestions - 1))
+				enable_btn("#nxtBtn");
+			else
+				disable_btn("#nxtBtn");
+		}
+		}
+
+		// disable and fade button
+		function disable_btn(btn) {
+		$(btn).attr("disabled", "disabled");
+		$(btn).fadeTo(0, 0.5);
+		}
+
+		// enable button
+		function enable_btn(btn) {
+		$(btn).removeAttr("disabled");
+		$(btn).fadeTo(0, 1.0);
+		}
+
+	// check to see if there are any empty fields
+	// if so, return a -1, if fields all have content return 1
+		function checkQA() {
+		  var ans = 1;
+		  if ($("#txtquestion").val() == "")
+			ans = -1;
+		  else if ($("#txtAns1").val() == "")
+			ans = -1;
+		  else if ($("#txtAns2").val() == "")
+			ans = -1;
+		  else if ($("#txtAns3").val() == "")
+			ans = -1;
+		  else if ($("#txtAns4").val() == "")
+			ans = -1;
+		  else if ($("#txtCorrectAns").val() == "")
+			ans = -1;
+		  else if ($("#txtCorrectAns").val() == "0")
+			ans = -1;
+		  return ans;
+		}
+
+</script>
+<style type="text/css">
+	#centerDiv {
+		margin: 0 auto;
+		text-align: center;
+		width: 600px;
+	}
+
+	#contentDiv {
+		text-align: left;
+		margin: 5px;
+	}
+
+	.txtBox {
+		width: 400px;
+		margin-left: 10px;
+	}
+
+	#newBtn {
+		float: left;
+		margin-left: 35px;
+	}
+
+	.tdLeft {
+		text-align: right;
+		padding-right: 10px;
+		width: 30%;
+	}
+
+	.tdRight {
+		text-align: left;
+		width: 69%;
+	}
+
+	.testList {
+		float: left;
+	}
+
+	span {
+		color: #f90;
+	}
+
+	.questNo {
+		float: left;
+		margin-left: 50px;
+	}
+
+	span {
+		margin: 5px;
+	}
+
+	.style1 {
+		width: 30%;
+	}
+</style>
+</asp:Content>
+
+
+<div id="centerDiv">
+	<div id="contentDiv">
+		<table>
+			<tr style="height: 50px;">
+				<td class="tdLeft">
+					<label>Test<label>
+					</td>
+					<td class="tdRight">
+					<select>
+  <option value="1">1</option>
+  <option value="5">5</option>
+</select>
+<label for="" class="questNo">Label</label>
+				</td>
+			</tr>
+			<tr style="height: 50px;">
+				<td class="tdLeft">
+					<label id="Label1">Question</label>
+				</td>
+				<td class="tdRight">
+					<textarea id="txtQuestion" class="txtBox"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td class="tdLeft">
+					<label>Answer #1</label>
+				</td>
+				<td>
+					<input id="txtAns1" class="txtBox" />
+				</td>
+			</tr>
+			<tr>
+				<td class="tdLeft">
+					<label>Answer #2</label>
+				</td>
+				<td>
+					<input id="txtAns2" class="txtBox" />
+				</td>
+			</tr>
+			<tr>
+				<td class="tdLeft">
+					<label>Answer #3</label>
+				</td>
+				<td>
+					<input id="txtAns3" class="txtBox" />
+				</td>
+			</tr>
+			<tr>
+				<td class="tdLeft">
+					<label>Answer #4</label>
+				</td>
+				<td>
+					<input id="txtAns4" class="txtBox" />
+				</td>
+			</tr>
+			<tr style="height: 50px;">
+				<td class="tdLeft">
+					<label>Correct Answer</label>
+				</td>
+				<td>
+					<input id="txtCorrectAns" class="txtBox" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<input type="button" id="newBtn" style="margin-left:90px;" value="New" />
+					<input type="button" id="saveBtn" value="Save" />
+					<input type="button" id="editBtn" value="Edit" />
+					<input type="button" id="delBtn" value="Delete" />
+					<input type="button" id="prevBtn" value="Prev" />
+					<input type="button" id="nxtBtn" value="Next" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" class="style1">
+					<div class="center">
+						<label id="savedMsg" style="clear: both; margin: 0 auto; text-align: center;">
+								Question saved.
+							</label>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<!-- end of contentDiv -->
+</div>
+<!-- end of centerDiv -->
+

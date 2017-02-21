@@ -15,3 +15,24 @@ app.directive('isActiveNav', ['$location', function ($location) {
     }
   };
 }]);
+
+//
+// do not allow a form to submit if form is invalid
+var jhSubmitDirective = {
+  'jhSubmit': ['$parse', function ($parse) {
+    return {
+      restrict: 'A',
+      require: 'form',
+      link: function (scope, formElement, attributes, formController) {
+        var fn = $parse(attributes.rcSubmit);
+        formElement.bind('submit', function (event) {
+          // if form is not valid cancel it.
+          if (!formController.$valid) return false;
+          scope.$apply(function () {
+            fn(scope, { $event: event });
+          });
+        });
+      }
+    };
+  }]
+};

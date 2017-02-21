@@ -8,5 +8,8 @@
     "start": "node server.js"
   },
   "author": "James",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "angular-ui-router": "^0.4.2"
+  }
 }

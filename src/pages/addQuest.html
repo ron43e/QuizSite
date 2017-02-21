@@ -1,0 +1,49 @@
+<form name="addQuestForm" class="addQuest jumbotron" ng-controller="addQuestCtrl" jh-Submit="" novalidate>
+	<div class="directions">
+		<div class="bold">Directions:</div>
+		<div>Enter your question and the corresponding answers. Then select the button to the right of the correct answer</div>
+		<div class="testname center bold">
+			<span>For Test:</span>
+			<span>{{test.name}}</span>
+			<span> - Question No: </span>
+			<span>{{questNum}}</span>
+		</div>
+	</div>
+	<table>
+		<tr class="spaceUnder">
+			<th></th>
+			<th></th>
+			<th>Correct</th>
+		</tr>
+		<tr class="spaceUnder">
+			<td class='tdLeft'>Question</td>
+			<td><textarea class="form-control" name="quest" type="text" ng-model="quest.question" ng-class="{'has-error': addQuestForm.quest.$invalid}" required /></td>
+			<td class='tdRight'></td>
+		</tr>
+		<tr>
+			<td class='tdLeft'>Answer #1</td>
+			<td class='tdCenter'><input class="form-control" type='text' ng-model='quest.ans1' /></td>
+			<td class='tdRight'><input type="radio" name="correct" ng-model="quest.correct" value="1" /></td>
+		</tr>
+		<tr>
+			<td class='tdLeft'>Answer #2</td>
+			<td class='tdCenter'><input class="form-control" type='text' ng-model='quest.ans2' /></td>
+			<td class='tdRight'><input type="radio" name="correct" ng-model="quest.correct" value="2" /></td>
+		</tr>
+		<tr>
+			<td class='tdLeft'>Answer #3</td>
+			<td class='tdCenter'><input class="form-control" type='text' ng-model='quest.ans3' /></td>
+			<td class='tdRight'><input type="radio" name="correct" ng-model="quest.correct" value="3" /></td>
+		</tr>
+		<tr>
+			<td class='tdLeft'>Answer #4</td>
+			<td class='tdCenter'><input class="form-control" type='text' ng-model='quest.ans4' /></td>
+			<td class='tdRight'><input type="radio" name="correct" ng-model="quest.correct" value="4" /></td>
+		</tr>
+	</table>
+	<hr>
+	<div class="btns">
+		<button type="button" class="btn btn-success" ng-click="finish()">Finish</button>
+		<button type="button" class="btn btn-success" ng-click="next()">Next</button>
+	</div>
+</form>

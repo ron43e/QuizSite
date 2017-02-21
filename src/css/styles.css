@@ -1,99 +1,132 @@
 * {
   margin: 0;
-  padding: 0;
-}
+  padding: 0; }
+
 body {
   margin: 0;
   padding: 0;
   font-family: Sans-serif;
+  font-size: 12pt;
   background: #2c3e50;
-  color: white;
-}
-#pageContents {
-  width: 100%;
-  color: #eee !important;
-}
-#wrap {
-  margin: 0 auto 30px;
-}
-#regbar {
-  height: 67px;
-  background: #34495e;
-}
-#navbar-default {
-  background-color: #1abc9c;
-  margin-top: 10px;
-}
-#navbar-default li a {
-  color: wheat;
-  font-weight: 700;
-}
-#navbar-default li a:hover {
-  color: #2c3e50;
-}
-#navbar-brand {
-  color: white;
-}
-#navthing {
-  margin-left: 50px;
-}
-#results {
-  margin: 0 auto;
-  text-align: center;
-}
+  color: #34495e; }
+
+a {
+  color: #ecf0f1;
+  font-weight: 700px; }
+  a:hover {
+    color: #1abc9c; }
+
+hr {
+  color: #34495e; }
+
+input {
+  color: #34495e; }
+
+table {
+  border-spacing: 10px; }
+  table th {
+    color: #1abc9c; }
+  table td {
+    padding-bottom: .5em; }
+
+ul li {
+  list-style: none; }
+
+.bold {
+  font-weight: bold; }
+
+.center {
+  margin: 0 auto; }
+
+.error {
+  color: red; }
+
 #jumbotron,
 .jumbotron {
   width: 800px;
-  margin: 0 auto;
-}
-.jumbotron h3 {
-  padding: 20px;
-  /*color: #ecf0f1;*/
-  color: #1abc9c;
-  margin: 0 auto;
-  text-align: center;
-  font-size: 20pt;
-}
-.jumbotron h4 {
-  padding: 20px;
-  margin: 0 auto;
-  text-align: center;
-  color: #34495e;
-}
-.jumbotron p {
-  color: #34495e;
-  text-align: center;
-}
-#login {
-  width: 300px;
-}
+  margin: 0 auto; }
+  #jumbotron h3,
+  .jumbotron h3 {
+    padding: 20px;
+    color: #1abc9c;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 20pt; }
+  #jumbotron h4,
+  .jumbotron h4 {
+    padding: 20px;
+    margin: 0 auto;
+    text-align: center;
+    color: #34495e; }
+  #jumbotron p,
+  .jumbotron p {
+    color: #34495e;
+    text-align: center; }
+
 fieldset {
-  border: none;
-}
+  border: none; }
+
+.welcome a {
+  color: blue; }
+  .welcome a:hover {
+    color: #1abc9c; }
+
+#pageContents {
+  width: 100%;
+  color: #eee !important; }
+
+#navbar-default {
+  background-color: #1abc9c;
+  margin-top: 10px; }
+  #navbar-default li a {
+    color: wheat;
+    font-weight: 700; }
+    #navbar-default li a:hover {
+      color: #2c3e50; }
+  #navbar-default ul.dropdown-menu a {
+    color: #1abc9c; }
+  #navbar-default .navbar-nav > .open > a {
+    background-color: #34495e; }
+    #navbar-default .navbar-nav > .open > a:hover {
+      color: wheat; }
+
+#navbar-brand {
+  color: white; }
+
+#navthing {
+  margin-left: 50px; }
+
+#txtPassword {
+  margin-bottom: 10px; }
+
+#login {
+  width: 300px; }
+
 .login {
   position: relative;
   width: 350px;
-  margin: 0 auto;
-}
-.arrow-up {
-  width: 0;
-  height: 0;
-  border-left: 20px solid transparent;
-  border-right: 20px solid transparent;
-  border-bottom: 15px solid #ECF0F1;
-  left: 10%;
-  position: absolute;
-  top: -10px;
-}
+  margin: 0 auto; }
+  .login h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+    color: #1abc9c;
+    font-size: 14pt;
+    font-weight: bold;
+    text-align: center; }
+  .login h4 {
+    color: #34495e;
+    font-size: 14pt;
+    text-align: center; }
+
 .formholder {
   background: #ecf0f1;
   width: 350px;
   border-radius: 5px;
-  padding-top: 5px;
-}
+  padding-top: 5px; }
+
 .formholder input[type="email"],
 .formholder .formholder input[type="password"] {
-  padding: 7px 5px;
+  padding: 7px 12px;
   margin: 10px 0;
   width: 100%;
   display: block;
@@ -103,13 +136,13 @@ fieldset {
   -webkit-transition: 0.3s linear;
   -moz-transition: 0.3s linear;
   -o-transition: 0.3s linear;
-  transition: 0.3s linear;
-}
+  transition: 0.3s linear; }
+
 .formholder input[type="email"]:focus,
 .formholder .formholder input[type="password"]:focus {
   outline: none;
-  box-shadow: 0 0 1px 1px #1abc9c;
-}
+  box-shadow: 0 0 1px 1px #1abc9c; }
+
 .formholder input[type="button"] {
   background: #1abc9c;
   padding: 10px;
@@ -118,44 +151,152 @@ fieldset {
   width: 100%;
   border: none;
   color: #fff;
-  border-radius: 5px;
-}
+  border-radius: 5px; }
+
 .formholder input[type="button"]:hover {
-  background: #1bc6a4;
-}
+  background: #1abc9c; }
+
 .randompad {
-  padding: 10px;
-}
-.green {
-  color: #1abc9c;
-}
-.blue {
-  color: #34495e;
-}
-a {
-  color: #ecf0f1;
-  font-weight: 700px;
-}
-a:hover {
-  color: #1abc9c;
-}
-.error {
-  color: red;
-}
+  padding: 10px; }
+
 .btnDisabled {
-  color: #BBB;
-}
+  color: #BBB; }
+
 .has-error {
   background-color: #FEE;
   border: solid red 1px !important;
-  box-shadow: none !important;
-}
-.welcome a {
-  color: blue;
-}
-.welcome a:hover {
-  color:#1abc9c;
-}
-next {
-  color: blue;
-}
+  box-shadow: none !important; }
+
+.addQuest {
+  width: 100%;
+  margin: 0 auto;
+  color: #34495e; }
+  .addQuest .question {
+    margin-bottom: 10px; }
+  .addQuest .testname {
+    width: 400px;
+    margin-top: 20px; }
+  .addQuest button {
+    float: right; }
+  .addQuest input {
+    width: 100%; }
+  .addQuest table {
+    width: 900px;
+    margin: 0 auto; }
+    .addQuest table textarea {
+      width: 100%; }
+    .addQuest table tr.spaceUnder > td {
+      padding-bottom: 1em; }
+    .addQuest table tr.spaceUnder > th {
+      padding-bottom: .5em; }
+    .addQuest table td.tdLeft {
+      text-align: right;
+      padding-right: 10px;
+      width: 12%; }
+    .addQuest table td.tdCenter {
+      text-align: left;
+      width: 83%; }
+    .addQuest table td.tdRight {
+      text-align: center;
+      width: 5%; }
+  .addQuest .btns {
+    width: 300px;
+    float: right; }
+    .addQuest .btns button {
+      margin-left: 10px; }
+
+#adminTests h3 {
+  width: 80px;
+  color: #1abc9c;
+  margin: 0 auto; }
+
+#adminTests .topDiv {
+  width: 600px;
+  margin: 0 auto;
+  overflow: hidden; }
+  #adminTests .topDiv h3 {
+    float: left; }
+  #adminTests .topDiv button {
+    float: right; }
+
+#adminTests table {
+  width: 600px;
+  margin: 0 auto; }
+  #adminTests table tr th {
+    border-bottom: 2px solid wheat;
+    padding-bottom: .4em; }
+    #adminTests table tr th:not(:first-child) {
+      text-align: center; }
+  #adminTests table tr:nth-child(2) td {
+    padding-top: 10px; }
+  #adminTests table tr td:not(:first-child) {
+    text-align: center; }
+  #adminTests table tr td.name {
+    width: 50%; }
+  #adminTests table tr td.time {
+    width: 20%; }
+  #adminTests table tr td.tdn {
+    width: 15%; }
+
+#adminTests .centerImg {
+  text-align: center; }
+
+#editTest div {
+  padding: 10px; }
+
+#editTest .topDiv {
+  min-height: 50px;
+  border-bottom: 1px solid #8888bb; }
+  #editTest .topDiv div.nameDiv {
+    float: left; }
+  #editTest .topDiv div.doneDiv {
+    float: right; }
+
+#editTest .editTest {
+  min-height: 800px;
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  flex-flow: row;
+  clear: both; }
+  #editTest .editTest .leftDiv {
+    margin: 4px;
+    padding: 5px;
+    border-right: 1px solid #8888bb;
+    flex: 1 6 20%;
+    order: 1; }
+    #editTest .editTest .leftDiv input.minutes {
+      width: 50px; }
+  #editTest .editTest .rightDiv {
+    margin: 4px;
+    padding: 15px;
+    flex: 3 1 80%;
+    order: 2; }
+    #editTest .editTest .rightDiv table {
+      width: 600px;
+      margin: 0 auto; }
+      #editTest .editTest .rightDiv table tr th {
+        border-bottom: 2px solid wheat;
+        padding-bottom: .4em; }
+        #editTest .editTest .rightDiv table tr th:not(:first-child) {
+          text-align: center; }
+      #editTest .editTest .rightDiv table tr:nth-child(2) td {
+        padding-top: 10px; }
+      #editTest .editTest .rightDiv table tr td:not(:first-child) {
+        text-align: center; }
+      #editTest .editTest .rightDiv table tr td.name {
+        width: 50%; }
+      #editTest .editTest .rightDiv table tr td.time {
+        width: 20%; }
+      #editTest .editTest .rightDiv table tr td.tdn {
+        width: 15%; }
+
+#editTest header,
+#editTest footer {
+  display: block;
+  margin: 4px;
+  padding: 5px;
+  min-height: 100px;
+  border: 1px solid #eebb55;
+  border-radius: 7pt;
+  background: #ffeebb; }

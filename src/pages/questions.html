@@ -1,0 +1,279 @@
+<div id="makeQuestion">
+	<div id="quizEditingContainer">
+		<div id="quizEditingContentHeader">
+			<div style="float:left;width:140px;">
+				<div style="width:auto;height:20px;border-style:solid;border-width:1px;border:none">
+					<div id="tabLeft"><img src="/images/white2l.gif" style="height:20px;width:20px;" alt="" /></div>
+					<div id="tabMiddle" style="background:url(/images/white2m.gif);">
+						<div id="tabMiddleText" style="width:90px">
+							<a href="/instructor/quiz_wiz_set.jsp?pl=qm&cl=nw_qz&ed=old&ts1487278205104">Quiz Settings</a>
+						</div>
+					</div>
+					<div id="tabRight"><img src="/images/white2r.gif" style="height:20px;width:20px;" alt="" /></div>
+				</div>
+			</div>
+			<div style="float:left;width:140px;">
+				<div style="width:auto;height:20px;border-style:solid;border-width:1px;border:none">
+					<div id="tabLeft"><img src="/images/white1l.gif" style="height:20px;width:20px;" alt="" /></div>
+					<div id="tabMiddle" style="background:url(/images/white1m.gif);">
+						<div id="tabMiddleText" style="width:90px">
+							Question Form
+						</div>
+					</div>
+					<div id="tabRight"><img src="/images/white1r.gif" style="height:20px;width:20px;" alt="" /></div>
+				</div>
+			</div>
+			<div style="float:left;width:140px;">
+				<div style="width:auto;height:20px;border-style:solid;border-width:1px;border:none">
+					<div id="tabLeft"><img src="/images/white2l.gif" style="height:20px;width:20px;" alt="" /></div>
+					<div id="tabMiddle" style="background:url(/images/white2m.gif);">
+						<div id="tabMiddleText" style="width:90px">
+							<a href="/instructor/quiz_wiz_qzlist.jsp?pl=qm&cl=nw_qz&ts=1487278205104">Question List</a>
+						</div>
+					</div>
+					<div id="tabRight"><img src="/images/white2r.gif" style="height:20px;width:20px;" alt="" /></div>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<form action="/servlet/quizquestioncreatorservlet" method="post" name="quizquestionform">
+			<div style="margin:0 auto; width:620px;border-style:solid;border-width:1px;border:none;">
+				<input type="hidden" name="ed" value="new" />
+				<input type="hidden" name="question_id" value="null" />
+				<input type="hidden" name="ans_type_id" value="5" />
+				<p></p>
+				<div style="float:left;width:280px;">
+					<strong>Directions</strong><br/> Create your quiz questions by filling in the form below, then choosing your Save option.
+					If you need further instructions about how to make quiz questions, go to the <a href="#directions">Additional Directions</a>					at the bottom of the page.
+				</div>
+				<div style="float:right;width:320px;">
+					<input name="savecontinue" type="image" id="savecontinue" value="Save and Continue" src="/images/save_new.gif" width="100"
+						height="30" />
+					<input name="savecomeback" type="image" id="savecomeback" value="Save go to list" src="/images/save_list.gif" width="100"
+						height="30" />
+					<input name="cancel" type="image" id="cancel" value="Cancel" src="/images/cancel_list.gif" width="100" height="30" />
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="clear"></div>
+			<p></p>
+			<div style="margin:0 auto; width:610px;border-style:solid;border-width:1px;border-color:#FFCC00;padding:5px;">
+				<div style="float:left;width:360px;">
+					<strong>Question</strong>
+					<span style="font-size:80%;"><em>(HTML tags allowed)</em></span>
+					<textarea name="the_question" style="width:350px;height:100px;" id="textarea8"></textarea>
+				</div>
+				<div style="float:right;width:230px;">
+					<div style="text-align:right">
+						Question worth
+						<select name="points" id="points">
+					<option value="1" selected>1</option>
+					<option value="2" >2</option>
+					<option value="3" >3</option>
+					<option value="4" >4</option>
+					<option value="5" >5</option>
+					<option value="6" >6</option>
+					<option value="7" >7</option>
+					<option value="8" >8</option>
+					<option value="9" >9</option>
+					<option value="10" >10</option>
+					<option value="11" >11</option>
+					<option value="12" >12</option>
+					<option value="13" >13</option>
+					<option value="14" >14</option>
+					<option value="15" >15</option>
+					<option value="16" >16</option>
+					<option value="17" >17</option>
+					<option value="18" >18</option>
+					<option value="19" >19</option>
+					<option value="20" >20</option>
+				</select> points.
+					</div>
+					<p></p>
+					<p style="margin:0;padding:0">
+						<strong>Instructions</strong><br/>
+						<textarea name="ques_instruction" style="width:220px;height:30px;" id="ques_instruction"></textarea>
+						<strong>Feedback</strong><br/>
+						<textarea name="answer_explanation" style="width:220px;height:30px;" id="answer_explanation"></textarea>
+					</p>
+				</div>
+				<div class="clear"></div>
+				<p></p>
+				<strong>Answer </strong>
+				<span class="description">( Select one: MC, TF or SA - questions will not be saved unless an answer format is selected.)</span>
+
+				<script type="text/javascript">
+					<!--
+						function toggleSelection(sel) {
+							var elementMc = document.getElementById("tdmc");
+							var elementTf = document.getElementById("tdtf");
+							var elementSa = document.getElementById("tdsa");
+							var selClass = "yellowBkg";
+							var unselClass = "greyBkg";
+							elementMc.className = unselClass;
+							elementTf.className = unselClass;
+							elementSa.className = unselClass;
+							if (sel == 'tdmc') {
+								elementMc.className = selClass;
+							} else if (sel == 'tdtf') {
+								elementTf.className = selClass;
+							} else if (sel == 'tdsa') {
+								elementSa.className = selClass;
+							}
+						}
+					function openpopup(popurl) {
+						if (document.all)
+							var xMax = screen.width, yMax = screen.height;
+						else
+							if (document.layers)
+								var xMax = window.outerWidth, yMax = window.outerHeight;
+							else
+								var xMax = 640, yMax = 480;
+						var xOffset = (xMax - 200) / 3, yOffset = (yMax - 200) / 3;
+						var xMax2 = xMax / 2, yMax2 = yMax / 2;
+						NewWindow = window.open(popurl, 'QuizQuestionPreview', 'width=' + xMax2 + ',height=' + yMax2 + ',screenX=' + xOffset + ',screenY=' + yOffset + ',top=' + yOffset + ',left=' + xOffset + ',resizable,scrollbars');
+						NewWindow.focus();
+					}
+					function focus() {
+						document.quizquestionform.the_question.focus();
+						if (document.quizquestionform.qtype[0].checked)
+							toggleSelection('tdmc');
+						if (document.quizquestionform.qtype[1].checked)
+							toggleSelection('tdtf');
+						if (document.quizquestionform.qtype[2].checked)
+							toggleSelection('tdsa');
+					}
+		//-->
+				</script>
+				<div style="float:left;width:360px;">
+					<div id="tdmc" class="yellowBkg">
+						<input name="qtype" type="radio" value="mc" checked onClick="javascript:toggleSelection('tdmc');" />
+						<strong>Multiple Choice <span class="description"><em>(MC)</em></span></strong>
+					</div>
+					<div class="description"><strong>Show Students:</strong></div>
+					<input name="ismultiplecorrect" type="radio" value="0" checked onClick="javascript:toggleSelection('tdmc');" /> Multiple
+					Choice: &quot;Select one&quot;
+					<br/>
+					<input name="ismultiplecorrect" type="radio" value="1" onClick="javascript:toggleSelection('tdmc');"> Multiple Correct:
+					<input name="ismultiplecorrectinstruction" type="text" value="Choose all that Apply" style="font-size:100%;color:#666666;height:13px;width:150px;"
+						maxlength="40" onFocus="javascript:toggleSelection('tdmc');" />
+					<br/>
+					<br/>
+					<strong>Mark Correct:</strong>
+					<span class="description">(at least one answer)</span><br/>
+					<span class="description"><em>(HTML tags not allowed in choices)</em></span>
+					<br/>
+					<div style="text-align:right">
+						<table cellpadding="0" cellspacing="0" border="0">
+							<tr>
+								<td><input name="iscorrectchoice-0" type="checkbox" value="1" onfocus=="javascript:toggleSelection('tdmc');" />
+								</td>
+								<td style="width:20px;text-align:center;">*&nbsp;</td>
+								<td><input name="answer_choice_0" type="text" maxlength="250" value="" onfocus="javascript:toggleSelection('tdmc');"
+										style="font-size:100%;color:#666666;height:13px;width:280px;" />
+								</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td><input name="iscorrectchoice-1" type="checkbox" value="1" onfocus=="javascript:toggleSelection('tdmc');" />
+								</td>
+								<td style="width:20px;text-align:center;">*&nbsp;</td>
+								<td><input name="answer_choice_1" type="text" maxlength="250" value="" onfocus="javascript:toggleSelection('tdmc');"
+										style="font-size:100%;color:#666666;height:13px;width:280px;" />
+								</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td><input name="iscorrectchoice-2" type="checkbox" value="1" onfocus=="javascript:toggleSelection('tdmc');" />
+								</td>
+								<td style="width:20px;text-align:center;">*&nbsp;</td>
+								<td><input name="answer_choice_2" type="text" maxlength="250" value="" onfocus="javascript:toggleSelection('tdmc');"
+										style="font-size:100%;color:#666666;height:13px;width:280px;" />
+								</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td><input name="iscorrectchoice-3" type="checkbox" value="1" onfocus=="javascript:toggleSelection('tdmc');" />
+								</td>
+								<td style="width:20px;text-align:center;">*&nbsp;</td>
+								<td><input name="answer_choice_3" type="text" maxlength="250" value="" onfocus="javascript:toggleSelection('tdmc');"
+										style="font-size:100%;color:#666666;height:13px;width:280px;" />
+								</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td><input name="iscorrectchoice-4" type="checkbox" value="1" onfocus=="javascript:toggleSelection('tdmc');" />
+								</td>
+								<td style="width:20px;text-align:center;">*&nbsp;</td>
+								<td><input name="answer_choice_4" type="text" maxlength="250" value="" onfocus="javascript:toggleSelection('tdmc');"
+										style="font-size:100%;color:#666666;height:13px;width:280px;" />
+								</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td colspan="3">
+									<input name="addchoicebutton" type="image" value="Add Another Choice" src="../images/add_choice.gif" alt="Add another answer choice"
+										width="141" height="21">
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div style="float:right;width:230px;">
+					<div id="tdtf" class="greyBkg">
+						<input name="qtype" type="radio" value="tf" onClick="javascript:toggleSelection('tdtf');" />
+						<strong>True / False  <span class="description"><em>(TF)</em></span></strong>
+					</div>
+					<br/>
+					<div style="width:200px;margin:0 auto;">
+						<strong>Mark Correct:</strong>
+						<br/>
+						<input name="iscorrectchoicetf" type="radio" value="first" checked onClick="javascript:toggleSelection('tdtf');" />						*
+						<input name="answer_choicetf_0" type="text" style="font-size:100%;color:#666666;height:13px;width:150px;" value="True" onFocus="javascript:toggleSelection('tdtf');"
+						/>
+						<br/>
+						<div style="height:5px;"></div>
+						<input name="iscorrectchoicetf" type="radio" value="second" onClick="javascript:toggleSelection('tdtf');" /> *
+						<input name="answer_choicetf_1" type="text" style="font-size:100%;color:#666666;height:13px;width:150px;" value="False" onFocus="javascript:toggleSelection('tdtf');"
+						/>
+						<br/><br/>
+					</div>
+					<div id="tdsa" class="greyBkg">
+						<input name="qtype" type="radio" value="sa" onClick="javascript:toggleSelection('tdsa');" />
+						<strong>Short Answer <span class="description"><em>(SA)</em></span></strong>
+					</div>
+					<strong>Correct Answer </strong>
+					<br/>
+					<span class="desc">(for your reference)</span>
+					<br />
+					<textarea name="correctAnsShort" style="font-size:100%;color:#666666;height:100px;width:220px;" onFocus="javascript:toggleSelection('tdsa');"></textarea>					Note: QuizStar does not grade Short Answer questions and excludes them from reported results
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="clear"></div>
+			<div style="float:right;padding:5px;">
+				<input name="savecontinue" type="image" id="savecontinue" value="Save and Continue" src="/images/save_new.gif" width="100"
+					height="30" />
+				<input name="savecomeback" type="image" id="savecomeback" value="Save go to list" src="/images/save_list.gif" width="100"
+					height="30" />
+				<input name="cancel" type="image" id="cancel" value="Cancel" src="/images/cancel_list.gif" width="100" height="30" />
+			</div>
+		</form>
+		<div class="clear"></div>
+		<p></p>
+		<a name="directions"></a>
+		<div style="padding-left:5px;">
+			<strong>Additional Directions</strong>
+			<br/><br/>
+			<ul style="margin:0;">
+				<li>To create a quiz question, fill in the Question form, then select ONE answer format (e.g. multiple choice, true or false,
+					or fill in the blank).</li>
+				<li> Finally, choose a Save option: "Save, make new question" saves a question, then instantly resets the form to add another
+					question. "Save, go to question list" saves a question, then takes you to the Question List to see all of your questions.
+					"Cancel, go to question list" does not save anything and takes you to the Question List.</li>
+				<li> Note: A question will not be saved if there is no answer format selected.</li>
+			</ul>
+		</div>
+		<br/>
+	</div>
+</div>

@@ -1,0 +1,523 @@
+<script type="text/javascript">
+	function test(id) {
+		this.id;
+		this.name;
+		this.time;
+		this.deleted;
+		}
+		var tests;
+		var numberOfTests = 0
+		var testNum = 0;
+		var testID = -1;
+		var numberOfQuestions;
+		var changed = false;
+		var original = new Array();
+		var testInfo = {};
+
+		$(document).ready(function () {
+		disableButtons();
+		getTests()
+
+		/***************************************************************
+		*
+		* HANDLE BUTTON CLICKS
+		*
+		***************************************************************/
+		//
+		// handle the "New" button
+		//
+		$("#newBtn").click(function () {
+			testID = -1;
+			clearTest();
+			disableButtons();
+			enableFields();
+			$("#<%=txtTestName.ClientID%>").focus();
+		}); // end of handling new button
+
+		//
+		// handle edit button click
+		//
+		$("#editBtn").click(function () {
+			enableFields();
+			$("#<%=txtTestName.ClientID %>").focus();
+			disable_btn("#editBtn");
+		});
+
+		// handle save button click
+		$("#saveBtn").click(function () {
+			// check to see if name field has something in it
+			var s = $("#<%= txtTestName.ClientID %>").val();
+			if (s.length > 0) { // does name have content
+				if ((testID == -1) || (numberOfTests == 0)) {
+					saveNewTest();
+				}
+				// otherwise you are updating a test
+				else {
+					updateTest(tests[testNum].testID);
+				}
+				disable_btn("#saveBtn");
+				if ($("#<%=txtTestName.ClientID%>").is(".red")) {
+					$("input[type='text']").toggleClass("red");
+				}
+			}
+			else {
+				alert("You must enter a test name.");
+			}
+		});
+
+		//
+		// handled the 'Delete' button
+		//
+		$("#delBtn").click(function () {
+			if (testID != -1) {
+
+				var r = confirm("Delete " + tests[testNum].name + "?");
+				if (r == true) {
+					deleteTest(testID);
+					$("#<%= lblRecInserted.ClientID %>").hide();
+					getTests();
+				}
+			}
+		}); // end of handling 'Next' button
+
+		//
+		// handled the 'Next' button
+		//
+		$("#nextBtn").click(function () {
+			if (testNum < (numberOfTests - 1)) {
+				testNum++;
+				writeTest();
+				setPrevNextStatus();
+			}
+			$("#<%= lblRecInserted.ClientID %>").hide();
+		}); // end of handling 'Next' button
+
+		//
+		// handled the 'Prev' button
+		//
+		$("#prevBtn").click(function () {
+			if (testNum > 0) {
+				testNum--;
+				writeTest();
+				setPrevNextStatus();
+			}
+			$("#<%= lblRecInserted.ClientID %>").hide();
+		}); // end of handling 'Prev' button
+
+		//
+		// Detect name change
+		//
+		$("#<%= txtTestName.ClientID %>").keyup(function () {
+			testInfo.name = $("#<%= txtTestName.ClientID %>").val();
+			check_fields_change();
+			if (testInfo.name.length > 0) {
+				enable_btn("#editBtn");
+			}
+		});
+
+		//
+		// Detect timeLimit dropdownlist change
+		//
+		$("#<%=ddTimeLimit.ClientID %>").change(function () {
+			timeLimit = $("<%= ddTimeLimit.ClientID%>").val();
+			testInfo.timeLimit = timeLimit;
+			check_fields_change();
+		});
+
+		//
+		// Code to detect if enter key was pressed in the name field
+		//
+		$("#<%= txtTestName.ClientID %>").bind("enterKey", function (e) {
+			testInfo.name = $("#<%= txtTestName.ClientID %>").val();
+			if (testInfo.name.length > 0) {
+				check_fields_change();
+			}
+		});
+		$("#<%= txtTestName.ClientID %>").keyup(function (e) {
+			if (e.keyCode == 13) {
+				$(this).trigger("enterKey");
+			}
+		});
+
+		}); // end of document ready
+
+	/***************************************************************
+	*
+	* TEST OPERATIONS
+	*
+	***************************************************************/
+		// read tests
+		function getTests() {
+		changed = false;
+		enable_btn("#newBtn");
+		// this ajax gets all of the tests
+		$.ajax({
+			type: "POST",
+			url: "AddTest.aspx/GetAllTests",
+			data: JSON.stringify({}),
+			contentType: "application/json; charset=utf-8",
+			dataType: "json",
+			success: function (str) {
+				// Retrieve the first test, display it
+				tests = str.d;
+				numberOfTests = tests.length;
+				if (numberOfTests > 0) {
+					testNum = 0;
+					writeTest();
+					disableFields();
+					enable_btn("#editBtn");
+				}
+				else {
+					clearTest();
+					disableButtons();
+					enable_btn("#newBtn");
+				}
+				setPrevNextStatus();
+			},
+			error: function (err, response) {
+				alert("Get Tests error: " + err.responseText);
+			}
+		});// end of the ajax call to get the tests
+		} // end of getTests
+
+		//
+		// save a test
+		//
+		function saveNewTest() {
+		var name = $("#<%= txtTestName.ClientID%>").val();
+		var tl = $("#<%= ddTimeLimit.ClientID%>").val();
+		// add new test
+		$.ajax({
+			type: "POST",
+			url: "AddTest.aspx/saveNewTest",
+			data: JSON.stringify({ name: name, timeLimit: tl }),
+			contentType: "application/json; charset=utf-8",
+			dataType: "json",
+			success: function (str) {
+				if (str.d != -2) {
+					var test = readDropDown();
+					getTests();
+					testNum = numberOfTests;
+					$("#<%= lblRecInserted.ClientID %>").show().delay(1500).fadeOut();
+				}
+				else {
+					alert("Name used before. Cannot reuse. Please select another name.");
+				}
+			},
+			error: function (err, response) {
+				alert("Save error: " + err.responseText);
+			}
+		}); // end of the ajax call to save a new test
+		}  // end of saveNewTest
+
+		// update a test
+		function updateTest(id) {
+		var name = $("#<%=txtTestName.ClientID%>").val();
+		var tl = $("#<%=ddTimeLimit.ClientID%>").val();
+		$.ajax({
+			type: "POST",
+			url: "AddTest.aspx/updateTest",
+			data: JSON.stringify({ testID: id, name: name, timeLimit: tl }),
+			contentType: "application/json; charset=utf-8",
+			dataType: "json",
+			success: function (str) {
+				var test = readDropDown();
+				getTests();
+			},
+			error: function (err, response) {
+				alert("Update error: " + err.responseText);
+			}
+		});    // end of the ajax call
+		}  // end of updateTest
+
+		//
+		// delete a test
+		//
+		function deleteTest(test) {
+		$.ajax({
+			type: "POST",
+			url: "AddTest.aspx/deleteTest",
+			data: JSON.stringify({ testID: test }),
+			contentType: "application/json; charset=utf-8",
+			dataType: "json",
+			success: function (str) {
+				getTests();
+			},
+			error: function (err, response) {
+				alert("Delete error: " + err.responseText);
+			}
+		});     // end of the ajax call to delete test
+		}  // end of deleteTest
+
+		//
+		// display test information on screen
+		//
+		function writeTest() {
+		testID = tests[testNum].testID;
+		$("#<%=txtTestName.ClientID%>").val(tests[testNum].name);
+		$("#<%=ddTimeLimit.ClientID%>").val(tests[testNum].timeLimit);
+		original[0] = testID;
+		original[1] = tests[testNum].name;
+		original[2] = tests[testNum].timeLimit;
+		}
+
+	/***************************************************************
+	*
+	* MISCELLANEOUS OPERATIONS
+	*
+	***************************************************************/
+		// get the time limit from the dropdown
+		function readDropDown() {
+		var timeLimit = $("<%= ddTimeLimit.ClientID%>").val();
+		return timeLimit;
+	}
+
+		// check to see if fields have changed
+		// if so, enable 'save' button
+		function check_fields_change() {
+		var changed = false;
+		if ($("<%= txtTestName.ClientID %>").val() != original[1])
+			changed = true;
+		else if ($("<%= ddTimeLimit.ClientID%>").val() != original[2])
+			changed = true;
+		if (changed == true) {
+			enable_btn("#saveBtn");
+		}
+		}
+
+	// clear fields
+		function clearTest() {
+		$("#<%= txtTestName.ClientID %>").val("");
+		clearOriginals();
+		}
+
+		// enable field
+		function enable_field(fld) {
+		$(fld).removeAttr("disabled");
+		$(fld).fadeTo(0, 1.0);
+		$(fld).css("color", "red");
+		}
+
+		// disable field
+		function disable_field(field) {
+		$(field).attr("disabled", "disabled");
+		$(field).css("color", "black");
+		$(field).fadeTo(0, 0.9);
+		}
+
+		// disable the fields
+		function disableFields() {
+		disable_field("#<%= txtTestName.ClientID %>");
+		disable_field("#<%= ddTimeLimit.ClientID %>");
+		}
+
+		// enable the fields
+		function enableFields() {
+		enable_field("#<%= txtTestName.ClientID %>");
+		enable_field("#<%= ddTimeLimit.ClientID %>");
+		}
+
+		// disable and fade button
+		function disable_btn(btn) {
+		$(btn).attr("disabled", "disabled");
+		$(btn).css("color", "black");
+		$(btn).fadeTo(0, 0.5);
+		}
+
+		// disable all buttons
+		function disableButtons() {
+		disable_btn("#saveBtn");
+		disable_btn("#delBtn");
+		disable_btn("#editBtn");
+		disable_btn("#prevBtn");
+		disable_btn("#nextBtn");
+		$("#<%= lblRecInserted.ClientID %>").hide();
+		}
+
+		// enable button
+		function enable_btn(btn) {
+		$(btn).removeAttr("disabled", "disabled");
+		$(btn).css("color", "red");
+		$(btn).fadeTo(0, 1.0);
+		}
+
+		// enable all buttons
+		function enableButtons() {
+		enable_btn("#newBtn");
+		enable_btn("#saveBtn");
+		enable_btn("#delBtn");
+		enable_btn("#editBtn");
+		enable_btn("#prevBtn");
+		enable_btn("#nextBtn");
+		$("#<%= lblRecInserted.ClientID %>").hide();
+		}
+
+		// handle button status
+		function setPrevNextStatus() {
+		if (numberOfTests > 0) {
+			enable_btn("#delBtn");
+			enable_btn("#editBtn");
+			disable_btn("#saveBtn");
+			disableFields();
+			if ($("#<%= txtTestName.ClientID %>").is(".red")) {
+				$("input[type='text']").toggleClass("red");
+			}
+			if (testNum > 0)
+				enable_btn("#prevBtn");
+			else
+				disable_btn("#prevBtn");
+			if (testNum < (numberOfTests - 1))
+				enable_btn("#nextBtn");
+			else
+				disable_btn("#nextBtn");
+		}
+		}
+
+		// clear test fields
+		function clearTest() {
+		$("#<%=txtTestName.ClientID%>").val("");
+		clearOriginals();
+		}
+
+		// clear original array
+		function clearOriginals() {
+		for (i = 0; i < 3; i++)
+			original[i] = "";
+		}
+
+</script>
+
+<style type="text/css">
+	.label {
+		margin: 20px 5px;
+	}
+
+	#middleDiv {
+		margin: 0 auto;
+		text-align: center;
+		overflow: auto;
+		width: 450px;
+	}
+
+	#topDiv {
+		margin: 0 auto;
+		overflow: auto;
+		width: 400px;
+	}
+
+	#bottomDiv {
+		clear: both;
+		margin-left: 30px;
+		margin-top: 20px;
+		overflow: auto;
+		width: 400px;
+	}
+
+	.leftDiv {
+		margin-left: 50px;
+		width: 110px;
+		float: left;
+		text-align: right;
+	}
+
+	.rightDiv {
+		width: 200px;
+		float: left;
+		text-align: left;
+	}
+
+	#saveBtnDiv {
+		clear: both;
+		margin: 20px auto 10px;
+		text-align: center;
+	}
+
+	.timeLimit {
+		width: 50px;
+	}
+
+	.dropDownStyle {
+		width: 57px;
+	}
+
+	table.center {
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	td.pad {
+		padding-right: 10px;
+	}
+
+	body {
+		text-align: center;
+	}
+
+	input:focus {
+		outline: none;
+		border-color: red;
+		box-shadow: 0 0 10px #F90;
+	}
+</style>
+
+<div id="middleDiv">
+	<div class="orange center bold">TEST</div>
+	<br />
+	<div id="topDiv">
+		<table class="center">
+			<tr>
+				<td colspan="2" class="pad" style="text-align: right;">Name of Test:
+				</td>
+				<td colspan="2">
+					<input id="txtTestName" class="medField"></td>
+			</tr>
+			<tr>
+				<td colspan="2" class="pad" style="text-align: right;">Time Limit:
+				</td>
+				<td colspan="2">
+					<select>
+						<option value="1">1</option>
+						<option value="5">5</option>
+						<option value="10">10</option>
+						<option value="15">15</option>
+						<option value="20">20</option>
+						<option value="25">25</option>
+						<option value="30">30</option>
+						<option value="35">35</option>
+						<option value="40">40</option>
+						<option value="45">45</option>
+						<option value="50">50</option>
+						<option value="55">55</option>
+						<option value="60">60</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<br />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4">
+					<input type="button" id="newBtn" value="New" style="margin-left: 0;" />
+					<input type="button" id="editBtn" value="Edit" />
+					<input type="button" id="saveBtn" value="Save" />
+					<input type="button" id="delBtn" value="Delete" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4">
+					<input type="button" id="prevBtn" value="Prev" style="margin-left: 75px;" />
+					<input type="button" id="nextBtn" value="Next" /></td>
+			</tr>
+		</table>
+	</div>
+	<div id="saveBtnDiv">
+		<div>
+			<br />
+			<br />
+			<label id="lblRecInserted"></label>
+		</div>
+	</div>
+</div>
+</asp:Content>
