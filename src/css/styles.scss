@@ -333,9 +333,9 @@ fieldset {
 
 // editTest.html
 #editTest {
-	div {
-		padding: 10px;
-	}
+    div {
+        padding: 10px;
+    }
     .topDiv {
         min-height: 50px;
         border-bottom: 1px solid #8888bb;
@@ -359,8 +359,8 @@ fieldset {
             margin: 4px;
             padding: 5px;
             border-right: 1px solid #8888bb;
-//            border-radius: 7pt;
-//            background: #ccccff;
+            //            border-radius: 7pt;
+            //            background: #ccccff;
             flex: 1 6 20%;
             order: 1;
             input {
@@ -372,9 +372,9 @@ fieldset {
         .rightDiv {
             margin: 4px;
             padding: 15px;
-//            border: 1px solid #cccc33;
-//            border-radius: 7pt;
-//            background: #dddd88;
+            //            border: 1px solid #cccc33;
+            //            border-radius: 7pt;
+            //            background: #dddd88;
             flex: 3 1 80%;
             order: 2;
             table {
