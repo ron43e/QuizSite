@@ -101,20 +101,12 @@ app.controller('loginCtrl', function ($rootScope, $scope, Auth, $location, $cook
 app.controller('adminCtrl', function ($scope, Auth, $location) {
 });
 
-app.controller('addQuestCtrl', function ($scope, $location) {
+// Controller for addQuest.html - editing a question for a test
+app.controller('addQuestCtrl', function ($scope, $location, Auth, Data) {
   $scope.loggedIn = Auth.isLoggedIn();
-  $scope.test = {
-    name: 'Server 1'
-  };
-  $scope.questNum = 1;
-  $scope.quest = {
-    question: '',
-    ans1: '',
-    ans2: '',
-    ans3: '',
-    ans4: '',
-    correct: '1'
-  }
+  $scope.test = tests[Data.currentTest];
+  $scope.questNum = Data.currentQuest;
+  $scope.quest = questions[Data.currentQuest];
   // save question & add another
   $scope.next = function () {
     // save question
@@ -122,6 +114,7 @@ app.controller('addQuestCtrl', function ($scope, $location) {
   }
 });
 
+// Controller for adminTests.html - tests
 app.controller('adminTestsCtrl', function ($scope, $location, Auth, $mdDialog, Data) {
   $scope.loggedIn = Auth.isLoggedIn();
   $scope.tests = Data.getTests();
@@ -147,10 +140,16 @@ app.controller('adminTestsCtrl', function ($scope, $location, Auth, $mdDialog, D
   };
 });
 
+// Controller for adminEditTest - editing a test
 app.controller('editTestCtrl', function ($scope, $location, Auth, Data, verifyDelete) {
   $scope.loggedIn = Auth.isLoggedIn();
   $scope.questions = Data.getQuestions();
   $scope.test = tests[Data.currentTest];
+  // edit a question
+  $scope.edit = function(quest) {
+    Data.currentQuest = quest.id;
+    $location.path('/addQuest')
+  };
   // delete a question
   $scope.delete = function (quest) {
     verifyDelete('this question').then(function () {
@@ -166,3 +165,4 @@ app.controller('editTestCtrl', function ($scope, $location, Auth, Data, verifyDe
     $location.path('/adminTests');
   };
 });
+

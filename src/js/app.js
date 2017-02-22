@@ -1,7 +1,7 @@
 
 var app = angular.module('myApp', ['ngMaterial', 'ngCookies', 'ngRoute'])
 
-  .run(['$rootScope', '$location', 'Auth', function ($rootScope, $location, Auth, $cookies) {
+  .run(['$rootScope', '$location', 'Auth', function ($rootScope, $location, Auth, $cookies, $route, $routeParams, $routeProvider) {
     //    $rootScope.loggedIn = $cookies.get('loggedIn');
     // enumerate routes that don't need authentication
     var routesThatDontRequireAuth = ['/login', '/home'];
@@ -19,7 +19,11 @@ var app = angular.module('myApp', ['ngMaterial', 'ngCookies', 'ngRoute'])
       $rootScope.loggedIn = false;
       $location.path('/login');
     }
-    $rootScope.$on('$stateChangeStart', function (event, next, current) {
+    $rootScope.$on('$routeChangeStart', function (event, next, current) {
+      // console.log('Next Template: ' + next.$$route.templateUrl);
+      // console.log('Original Path: ' + next.$$route.originalPath);
+      // console.log('Controller: ' + next.$$route.controller);
+
       //       if (!Auth.isLoggedIn()) {
       //         console.log('DENY');
       //         //        event.preventDefault();
@@ -32,13 +36,14 @@ var app = angular.module('myApp', ['ngMaterial', 'ngCookies', 'ngRoute'])
     });
     $rootScope.$on('$locationChangeStart', function (event, newUrl, oldUrl) {
       // both newUrl and oldUrl are strings
-      console.log('Starting to leave %s to go to %s', oldUrl, newUrl);
+      //console.log('Starting to leave %s to go to %s', oldUrl, newUrl);
     });
   }])
 
   .factory('Data', function () {
     var tests;
     var currentTest;
+    var currentQuest;
     var questions;
     return {
       setTests: function (testList) {
