@@ -246,11 +246,20 @@ fieldset {
 
 #editTest .topDiv {
   min-height: 50px;
-  border-bottom: 1px solid #8888bb; }
+  border-bottom: 1px solid #8888bb;
+  overflow: hidden;
+  padding: 0;
+  position: relative; }
   #editTest .topDiv div.nameDiv {
-    float: left; }
+    padding: 0;
+    position: absolute;
+    left: 0;
+    bottom: 10px; }
   #editTest .topDiv div.doneDiv {
-    float: right; }
+    padding: 0;
+    position: absolute;
+    right: 0;
+    bottom: 10px; }
 
 #editTest .editTest {
   min-height: 800px;

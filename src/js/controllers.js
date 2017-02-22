@@ -12,15 +12,18 @@ firebase.initializeApp(config);
 
 
 // create the controller and inject Angular's $scope
-app.controller('mainCtrl', function ($scope, $location, $rootScope, $http, Auth, Data) {
+app.controller('mainCtrl', function ($rootScope, $scope, $location, $http, Auth, Data) {
+  $scope.admin = true;
   Data.setTests(tests);
   Data.setQuestions(questions);
-  $scope.user = {
+  Auth.setUser = {
     id: '',
     name: 'James',
     email: 'jhindmon@gmail.com',
-    password: 'dallas'
+    password: 'dallas',
+    admin: true
   }
+  $scope.user = Auth.getUser();
   var today = new Date();
   var dd = today.getDate();
   var mm = today.getMonth() + 1; //January is 0!
@@ -51,9 +54,8 @@ app.controller('mainCtrl', function ($scope, $location, $rootScope, $http, Auth,
   $scope.logOut = function () {
     firebase.auth().signOut().then(function () {
       // Sign-out successful.
+      Auth.setUserID('');
       $rootScope.loggedIn = false;
-      $rootScope.admin = false;
-      Auth.setUser('');
       $location.path('/');
       $scope.$apply();
     }, function (error) {
@@ -75,14 +77,15 @@ app.controller('resultsCtrl', function ($scope, $http) {
   // ]
 });
 
-app.controller('loginCtrl', function ($rootScope, $scope, Auth, $location) {
+app.controller('loginCtrl', function ($rootScope, $scope, Auth, $location, $cookies) {
+  $scope.user = Auth.getUser();
   $scope.logIn = function () {
     firebase.auth().signInWithEmailAndPassword($scope.user.email, $scope.user.password)
       .then(function (j) {
         $scope.user.id = j.i; // save auth id
+        Auth.setUserID($scope.user.id);
+        //        $cookies.put(loggedIn, true);
         $rootScope.loggedIn = true;
-        $rootScope.admin = true;
-        Auth.setUser($scope.user.id);
         $location.path('/welcome');
         $scope.$apply();
       })
@@ -95,7 +98,7 @@ app.controller('loginCtrl', function ($rootScope, $scope, Auth, $location) {
   }
 })
 
-app.controller('adminCtrl', function ($rootScope, $scope, Auth, $location) {
+app.controller('adminCtrl', function ($scope, Auth, $location) {
 });
 
 app.controller('addQuestCtrl', function ($scope, $location) {
@@ -119,12 +122,12 @@ app.controller('addQuestCtrl', function ($scope, $location) {
   }
 });
 
-app.controller('adminTestsCtrl', function ($rootScope, $scope, $location, Auth, $mdDialog, Data) {
+app.controller('adminTestsCtrl', function ($scope, $location, Auth, $mdDialog, Data) {
   $scope.loggedIn = Auth.isLoggedIn();
   $scope.tests = Data.getTests();
   $scope.questions = Data.getQuestions();
-//  $scope.questions = questions;
-//  $scope.tests = tests;
+  //  $scope.questions = questions;
+  //  $scope.tests = tests;
   $scope.addTest = function () {
     //    $location.path("/createTest");
     this.showTabDialog = function (ev) {
@@ -139,15 +142,15 @@ app.controller('adminTestsCtrl', function ($rootScope, $scope, $location, Auth, 
   }
   // edit a test
   $scope.editTest = function (test) {
-    $rootScope.currentTest = test;
+    Data.currentTest = test;
     $location.path('/editTest');
   };
 });
 
-app.controller('editTestCtrl', function ($rootScope, $scope, $location, Auth, Data, verifyDelete) {
+app.controller('editTestCtrl', function ($scope, $location, Auth, Data, verifyDelete) {
   $scope.loggedIn = Auth.isLoggedIn();
   $scope.questions = Data.getQuestions();
-  $scope.test = tests[$rootScope.currentTest];
+  $scope.test = tests[Data.currentTest];
   // delete a question
   $scope.delete = function (quest) {
     verifyDelete('this question').then(function () {
@@ -157,5 +160,9 @@ app.controller('editTestCtrl', function ($rootScope, $scope, $location, Auth, Da
         Data.setQuestions($scope.questions);
       }
     });
+  };
+  // Angular Function
+  $scope.done = function () {
+    $location.path('/adminTests');
   };
 });
