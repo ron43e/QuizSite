@@ -112,13 +112,22 @@ app.controller('addQuestCtrl', function ($scope, $location, Auth, Data) {
     // save question
     $scope.questNum++;
   }
+  // finish button clicked
+  // Angular Function
+  $scope.finished = function () {
+    $location.path('/editTest');
+  };
 });
 
 // Controller for adminTests.html - tests
-app.controller('adminTestsCtrl', function ($scope, $location, Auth, $mdDialog, Data) {
+app.controller('adminTestsCtrl', function ($scope, $location, Auth, $mdDialog, Data, $http) {
   $scope.loggedIn = Auth.isLoggedIn();
   $scope.tests = Data.getTests();
   $scope.questions = Data.getQuestions();
+  $http.get("../php/getData.php")
+    .then(function (response) {
+      $scope.tests = response.data.records;
+    });
   //  $scope.questions = questions;
   //  $scope.tests = tests;
   $scope.addTest = function () {
@@ -146,7 +155,7 @@ app.controller('editTestCtrl', function ($scope, $location, Auth, Data, verifyDe
   $scope.questions = Data.getQuestions();
   $scope.test = tests[Data.currentTest];
   // edit a question
-  $scope.edit = function(quest) {
+  $scope.edit = function (quest) {
     Data.currentQuest = quest.id;
     $location.path('/addQuest')
   };

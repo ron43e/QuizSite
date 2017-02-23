@@ -11,12 +11,14 @@
 			<th class="name">Test name</th>
 			<th class="time">Length</th>
 			<th class="pass">Passing Grade</th>
+			<th class="date">Last Taken</th>
+			<th class="date">First Taken</th>
 			<th class="tdn">Edit</th>
 			<th class="tdn">Delete</th>
 		</tr>
-		<tr ng-repeat="test in tests">
+		<tr ng-repeat="test in tests | orderBy: 'name'">
 			<td>{{test.name}}</td>
-			<td>{{test.minutes_allowed}}</td>
+			<td>{{test.minutes}}</td>
 			<td>{{test.passing_grade}}</td>
 			<td><span class="glyphicon glyphicon-edit" ng-click="editTest($index)" aria-hidden="true"></span></td>
 			<td><span class="glyphicon glyphicon-trash" ng-click="deleteTest($index)" aria-hidden="true"></span></td>
