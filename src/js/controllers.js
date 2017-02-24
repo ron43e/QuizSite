@@ -1,4 +1,3 @@
-
 // Initialize Firebase
 var config = {
   apiKey: "AIzaSyBo_GwY19BYQ6HTSdhLkXwXayEjoQrCN60",
@@ -98,8 +97,7 @@ app.controller('loginCtrl', function ($rootScope, $scope, Auth, $location, $cook
   }
 })
 
-app.controller('adminCtrl', function ($scope, Auth, $location) {
-});
+app.controller('adminCtrl', function ($scope, Auth, $location) {});
 
 // Controller for addQuest.html - editing a question for a test
 app.controller('addQuestCtrl', function ($scope, $location, Auth, Data) {
@@ -124,10 +122,21 @@ app.controller('adminTestsCtrl', function ($scope, $location, Auth, $mdDialog, D
   $scope.loggedIn = Auth.isLoggedIn();
   $scope.tests = Data.getTests();
   $scope.questions = Data.getQuestions();
-  $http.get("../php/getData.php")
-    .then(function (response) {
-      $scope.tests = response.data.records;
-    });
+  // read products
+//  $scope.getAll = function () {
+    $http({ method: 'GET',  url: '../api/questions/read.php' }) .then(
+      function successCallback(response) {
+        $scope.names = response.data.records;
+      },
+      function(e) {
+        var err = e;
+      }
+    );
+//  }
+  // $http.get("../php/pdoData.php")
+  //   .then(function (response) {
+  //     $scope.tests = response.data.records;
+  //   });
   //  $scope.questions = questions;
   //  $scope.tests = tests;
   $scope.addTest = function () {
@@ -174,4 +183,3 @@ app.controller('editTestCtrl', function ($scope, $location, Auth, Data, verifyDe
     $location.path('/adminTests');
   };
 });
-

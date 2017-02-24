@@ -211,8 +211,8 @@ fieldset {
   margin: 0 auto; }
 
 #adminTests .topDiv {
-  width: 600px;
-  margin: 0 auto;
+  width: 800px;
+  margin: 0 auto 10px;
   overflow: hidden; }
   #adminTests .topDiv h3 {
     float: left; }
@@ -220,8 +220,10 @@ fieldset {
     float: right; }
 
 #adminTests table {
-  width: 600px;
+  width: 800px;
   margin: 0 auto; }
+  #adminTests table th:not(:first-child) {
+    padding-left: 10px; }
   #adminTests table tr th {
     border-bottom: 2px solid wheat;
     padding-bottom: .4em; }
