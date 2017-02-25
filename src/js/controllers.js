@@ -12,6 +12,8 @@ firebase.initializeApp(config);
 
 // create the controller and inject Angular's $scope
 app.controller('mainCtrl', function ($rootScope, $scope, $location, $http, Auth, Data) {
+  console.log('in mainCtrl');
+
   $scope.admin = true;
   Data.setTests(tests);
   Data.setQuestions(questions);
@@ -77,6 +79,8 @@ app.controller('resultsCtrl', function ($scope, $http) {
 });
 
 app.controller('loginCtrl', function ($rootScope, $scope, Auth, $location, $cookies) {
+  console.log('in loginCtrl');
+
   $scope.user = Auth.getUser();
   $scope.logIn = function () {
     firebase.auth().signInWithEmailAndPassword($scope.user.email, $scope.user.password)
@@ -97,11 +101,25 @@ app.controller('loginCtrl', function ($rootScope, $scope, Auth, $location, $cook
   }
 })
 
-app.controller('adminCtrl', function ($scope, Auth, $location) {});
+app.controller('adminCtrl', function ($scope, Auth, $location) {
+  console.log('in adminCtrl');
+});
 
 // Controller for addQuest.html - editing a question for a test
+//
 app.controller('addQuestCtrl', function ($scope, $location, Auth, Data) {
   $scope.loggedIn = Auth.isLoggedIn();
+  // $http({
+  //   method: 'GET',
+  //   url: '../api/questions/read.php'
+  // }).then(
+  //   function successCallback(response) {
+  //     $scope.names = response.data.records;
+  //   },
+  //   function (e) {
+  //     var err = e;
+  //   }
+  // );
   $scope.test = tests[Data.currentTest];
   $scope.questNum = Data.currentQuest;
   $scope.quest = questions[Data.currentQuest];
@@ -117,22 +135,48 @@ app.controller('addQuestCtrl', function ($scope, $location, Auth, Data) {
   };
 });
 
+// CREATE A NEW TEST
+//
+app.controller('createTestCtrl', function ($scope, $routeParams, Auth) {
+  console.log('in createTestCtrl');
+
+  $scope.loggedIn = Auth.isLoggedIn();
+  $scope.newTest = {
+    name: 'new test',
+    minutes: '15',
+    passing: '70'
+  }
+  $scope.save = function (test) {
+    // save test here
+  };
+});
+
 // Controller for adminTests.html - tests
+//
 app.controller('adminTestsCtrl', function ($scope, $location, Auth, $mdDialog, Data, $http) {
+  console.log('in adminTestsCtrl');
+
   $scope.loggedIn = Auth.isLoggedIn();
   $scope.tests = Data.getTests();
   $scope.questions = Data.getQuestions();
   // read products
-//  $scope.getAll = function () {
-    $http({ method: 'GET',  url: '../api/questions/read.php' }) .then(
-      function successCallback(response) {
-        $scope.names = response.data.records;
-      },
-      function(e) {
-        var err = e;
-      }
-    );
-//  }
+  //  $scope.getAll = function () {
+  // $http({
+  //   method: 'GET',
+  //   url: '../api/tests/read.php'
+  // }).then(
+  //   function successCallback(response) {
+  //     console.log('http - success');
+
+  //     $scope.names = response.data.records;
+  //   },
+  //   function (e) {
+  //     console.log('http - error');
+
+  //     var err = e;
+  //   }
+  // );
+  //  }
   // $http.get("../php/pdoData.php")
   //   .then(function (response) {
   //     $scope.tests = response.data.records;
@@ -140,16 +184,18 @@ app.controller('adminTestsCtrl', function ($scope, $location, Auth, $mdDialog, D
   //  $scope.questions = questions;
   //  $scope.tests = tests;
   $scope.addTest = function () {
-    //    $location.path("/createTest");
-    this.showTabDialog = function (ev) {
-      $mdDialog.show({
-        controller: function () {
-          return self;
-        },
-        controllerAs: 'ctrl',
-        templateUrl: 'tabDialog.tmpl.html',
-      });
-    };
+    console.log('in addTest');
+
+    $location.path("/createTest");
+    // this.showTabDialog = function (ev) {
+    //   $mdDialog.show({
+    //     controller: function () {
+    //       return self;
+    //     },
+    //     controllerAs: 'ctrl',
+    //     templateUrl: 'tabDialog.tmpl.html',
+    //   });
+    // };
   }
   // edit a test
   $scope.editTest = function (test) {
@@ -159,7 +205,10 @@ app.controller('adminTestsCtrl', function ($scope, $location, Auth, $mdDialog, D
 });
 
 // Controller for adminEditTest - editing a test
+//
 app.controller('editTestCtrl', function ($scope, $location, Auth, Data, verifyDelete) {
+  console.log('in editTestCtrl');
+
   $scope.loggedIn = Auth.isLoggedIn();
   $scope.questions = Data.getQuestions();
   $scope.test = tests[Data.currentTest];
