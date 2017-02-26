@@ -23,25 +23,25 @@ var app = angular.module('myApp', ['ngMaterial', 'ngCookies', 'ngRoute'])
       $rootScope.loggedIn = false;
       $location.path('/login');
     }
-    $rootScope.$on('$routeChangeStart', function (event, next, current) {
-       console.log('Next Template: ' + next.$$route.templateUrl);
-       console.log('Original Path: ' + next.$$route.originalPath);
-       console.log('Controller: ' + next.$$route.controller);
+    // $rootScope.$on('$routeChangeStart', function (event, next, current) {
+    //    console.log('Next Template: ' + next.$$route.templateUrl);
+    //    console.log('Original Path: ' + next.$$route.originalPath);
+    //    console.log('Controller: ' + next.$$route.controller);
 
-      //       if (!Auth.isLoggedIn()) {
-      //         console.log('DENY');
-      //         //        event.preventDefault();
-      //         $location.path('/login');
-      //       }
-      //       else {
-      //         console.log('ALLOW');
-      // //        $location.path('/welcome');
-      //       }
-    });
-    $rootScope.$on('$locationChangeStart', function (event, newUrl, oldUrl) {
-      // both newUrl and oldUrl are strings
-      console.log('Starting to leave %s to go to %s', oldUrl, newUrl);
-    });
+    //   //       if (!Auth.isLoggedIn()) {
+    //   //         console.log('DENY');
+    //   //         //        event.preventDefault();
+    //   //         $location.path('/login');
+    //   //       }
+    //   //       else {
+    //   //         console.log('ALLOW');
+    //   // //        $location.path('/welcome');
+    //   //       }
+    // });
+    // $rootScope.$on('$locationChangeStart', function (event, newUrl, oldUrl) {
+    //   // both newUrl and oldUrl are strings
+    //   console.log('Starting to leave %s to go to %s', oldUrl, newUrl);
+    // });
   }])
 
   .factory('Data', function () {

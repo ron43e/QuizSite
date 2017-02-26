@@ -120,19 +120,19 @@ app.controller('addQuestCtrl', function ($scope, $location, Auth, Data) {
   //     var err = e;
   //   }
   // );
-  $scope.test = tests[Data.currentTest];
-  $scope.questNum = Data.currentQuest;
-  $scope.quest = questions[Data.currentQuest];
-  // save question & add another
-  $scope.next = function () {
-    // save question
-    $scope.questNum++;
-  }
-  // finish button clicked
-  // Angular Function
-  $scope.finished = function () {
-    $location.path('/editTest');
-  };
+  // $scope.test = tests[Data.currentTest];
+  // $scope.questNum = Data.currentQuest;
+  // $scope.quest = questions[Data.currentQuest];
+  // // save question & add another
+  // $scope.next = function () {
+  //   // save question
+  //   $scope.questNum++;
+  // }
+  // // finish button clicked
+  // // Angular Function
+  // $scope.finished = function () {
+  //   $location.path('/editTest');
+  // };
 });
 
 // CREATE A NEW TEST
@@ -140,20 +140,20 @@ app.controller('addQuestCtrl', function ($scope, $location, Auth, Data) {
 app.controller('createTestCtrl', function ($scope, $routeParams, Auth) {
   console.log('in createTestCtrl');
 
-  $scope.loggedIn = Auth.isLoggedIn();
-  $scope.newTest = {
-    name: 'new test',
-    minutes: '15',
-    passing: '70'
-  }
-  $scope.save = function (test) {
-    // save test here
-  };
+  // $scope.loggedIn = Auth.isLoggedIn();
+  // $scope.newTest = {
+  //   name: 'new test',
+  //   minutes: '15',
+  //   passing: '70'
+  // }
+  // $scope.save = function (test) {
+  //   // save test here
+  // };
 });
 
 // Controller for adminTests.html - tests
 //
-app.controller('adminTestsCtrl', function ($scope, $location, Auth, $mdDialog, Data, $http) {
+app.controller('adminTestsCtrl', function ($scope, $location, Auth, Data, $http) {
   console.log('in adminTestsCtrl');
 
   $scope.loggedIn = Auth.isLoggedIn();
@@ -186,7 +186,7 @@ app.controller('adminTestsCtrl', function ($scope, $location, Auth, $mdDialog, D
   $scope.addTest = function () {
     console.log('in addTest');
 
-    $location.path("/createTest");
+    $location.path("/editTest");
     // this.showTabDialog = function (ev) {
     //   $mdDialog.show({
     //     controller: function () {
@@ -209,26 +209,26 @@ app.controller('adminTestsCtrl', function ($scope, $location, Auth, $mdDialog, D
 app.controller('editTestCtrl', function ($scope, $location, Auth, Data, verifyDelete) {
   console.log('in editTestCtrl');
 
-  $scope.loggedIn = Auth.isLoggedIn();
-  $scope.questions = Data.getQuestions();
-  $scope.test = tests[Data.currentTest];
-  // edit a question
-  $scope.edit = function (quest) {
-    Data.currentQuest = quest.id;
-    $location.path('/addQuest')
-  };
-  // delete a question
-  $scope.delete = function (quest) {
-    verifyDelete('this question').then(function () {
-      var index = $scope.questions.indexOf(quest);
-      if (index != -1) { // if index = -1, it was not found
-        $scope.questions.splice(index, 1);
-        Data.setQuestions($scope.questions);
-      }
-    });
-  };
-  // Angular Function
-  $scope.done = function () {
-    $location.path('/adminTests');
-  };
+  // $scope.loggedIn = Auth.isLoggedIn();
+  // $scope.questions = Data.getQuestions();
+  // $scope.test = tests[Data.currentTest];
+  // // edit a question
+  // $scope.edit = function (quest) {
+  //   Data.currentQuest = quest.id;
+  //   $location.path('/addQuest')
+  // };
+  // // delete a question
+  // $scope.delete = function (quest) {
+  //   verifyDelete('this question').then(function () {
+  //     var index = $scope.questions.indexOf(quest);
+  //     if (index != -1) { // if index = -1, it was not found
+  //       $scope.questions.splice(index, 1);
+  //       Data.setQuestions($scope.questions);
+  //     }
+  //   });
+  // };
+  // // Angular Function
+  // $scope.done = function () {
+  //   $location.path('/adminTests');
+  // };
 });
