@@ -198,6 +198,9 @@ app.controller('adminTestsCtrl', function ($scope, $location, Auth, $mdDialog, D
   $scope.loggedIn = Auth.isLoggedIn();
   $scope.tests = Data.getTests();
   $scope.questions = Data.getQuestions();
+<<<<<<< HEAD
+>>>>>>> parent of 6d3df6c... quiz-170223-test-sql-working
+=======
 >>>>>>> parent of 6d3df6c... quiz-170223-test-sql-working
   //  $scope.questions = questions;
   //  $scope.tests = tests;
