@@ -80,6 +80,9 @@ app.controller('testsCtrl', function($scope, $location, $http, tests) {
 //    $location.path("/createTest");
 		$location.path('/createTest');
 	};
+	$scope.editTest = function(test) {
+
+	};
 });
 
 // Add Test
