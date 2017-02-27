@@ -11,18 +11,21 @@
 			<th class="name">Test name</th>
 			<th class="time">Length</th>
 			<th class="pass">Passing Grade</th>
+<<<<<<< HEAD
 			<th class="date">Last Taken</th>
 			<th class="date">First Taken</th>
 			<th class="times">Times Take</th>
 			<th class="date">Last Taken</th>
 			<th class="date">First Taken</th>
 			<th class="times">Times Take</th>
+=======
+>>>>>>> parent of 6d3df6c... quiz-170223-test-sql-working
 			<th class="tdn">Edit</th>
 			<th class="tdn">Delete</th>
 		</tr>
-		<tr ng-repeat="test in tests | orderBy: 'name'">
+		<tr ng-repeat="test in tests">
 			<td>{{test.name}}</td>
-			<td>{{test.minutes}}</td>
+			<td>{{test.minutes_allowed}}</td>
 			<td>{{test.passing_grade}}</td>
 			<td>{{test.last_taken}}</td>
 			<td>{{test.first_taken}}</td>
