@@ -152,6 +152,9 @@ fieldset {
   border: none;
   color: #fff;
   border-radius: 5px; }
+  .formholder input[type="button"]:hover {
+    color: darkblue;
+    font-weight: bold; }
 
 .formholder input[type="button"]:hover {
   background: #1abc9c; }
@@ -166,6 +169,13 @@ fieldset {
   background-color: #FEE;
   border: solid red 1px !important;
   box-shadow: none !important; }
+
+#badLogin .jumbotron {
+  width: 400px; }
+  #badLogin .jumbotron a {
+    color: blue; }
+    #badLogin .jumbotron a:hover {
+      color: #1abc9c; }
 
 .addQuest {
   width: 100%;
@@ -211,8 +221,8 @@ fieldset {
   margin: 0 auto; }
 
 #adminTests .topDiv {
-  width: 800px;
-  margin: 0 auto 10px;
+  width: 600px;
+  margin: 0 auto;
   overflow: hidden; }
   #adminTests .topDiv h3 {
     float: left; }
@@ -220,10 +230,8 @@ fieldset {
     float: right; }
 
 #adminTests table {
-  width: 800px;
+  width: 600px;
   margin: 0 auto; }
-  #adminTests table th:not(:first-child) {
-    padding-left: 10px; }
   #adminTests table tr th {
     border-bottom: 2px solid wheat;
     padding-bottom: .4em; }

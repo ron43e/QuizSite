@@ -18,18 +18,17 @@
 
 <div id="results" ng-controller="resultsCtrl">
 	<span>Hello {{ user.name }}, below are your tests results:</span>
+	<span>test results</span>
 	<table>
 		<tr>
 			<th>Date</th>
 			<th>Test</th>
 			<th>Score</th>
-			<th>Minutes</th>
 		</tr>
-		<tr ng-repeat="x in (filteredItems = (results | orderBy: 'date_taken': true))">
-			<td>{{ x.date_taken }}</td>
-			<td>{{ x.testID }}</td>
+		<tr ng-repeat="x in testResults">
+			<td>{{ x.date }}</td>
+			<td>{{ x.test }}</td>
 			<td style="text-align: right;">{{ x.score }}</td>
-			<td style="text-align: right;">{{ x.minutes_taken }}</td>
 			<!--<td ng-if="$odd" style="background-color:#f1f1f1">{{ x.date }}</td>
 			<td ng-if="$even">{{ x.date }}</td>
 			<td ng-if="$odd" style="background-color:#f1f1f1"> {{ x.test }}</td>
