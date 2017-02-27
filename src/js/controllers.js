@@ -109,6 +109,7 @@ app.controller('adminCtrl', function ($scope, Auth, $location) {
 //
 app.controller('addQuestCtrl', function ($scope, $location, Auth, Data) {
   $scope.loggedIn = Auth.isLoggedIn();
+<<<<<<< HEAD
   // $http({
   //   method: 'GET',
   //   url: '../api/questions/read.php'
@@ -181,6 +182,23 @@ app.controller('adminTestsCtrl', function ($scope, $location, Auth, Data, $http)
   //   .then(function (response) {
   //     $scope.tests = response.data.records;
   //   });
+=======
+  $scope.test = tests[Data.currentTest];
+  $scope.questNum = Data.currentQuest;
+  $scope.quest = questions[Data.currentQuest];
+  // save question & add another
+  $scope.next = function () {
+    // save question
+    $scope.questNum++;
+  }
+});
+
+// Controller for adminTests.html - tests
+app.controller('adminTestsCtrl', function ($scope, $location, Auth, $mdDialog, Data) {
+  $scope.loggedIn = Auth.isLoggedIn();
+  $scope.tests = Data.getTests();
+  $scope.questions = Data.getQuestions();
+>>>>>>> parent of 6d3df6c... quiz-170223-test-sql-working
   //  $scope.questions = questions;
   //  $scope.tests = tests;
   $scope.addTest = function () {
@@ -207,7 +225,33 @@ app.controller('adminTestsCtrl', function ($scope, $location, Auth, Data, $http)
 // Controller for adminEditTest - editing a test
 //
 app.controller('editTestCtrl', function ($scope, $location, Auth, Data, verifyDelete) {
+<<<<<<< HEAD
   console.log('in editTestCtrl');
+=======
+  $scope.loggedIn = Auth.isLoggedIn();
+  $scope.questions = Data.getQuestions();
+  $scope.test = tests[Data.currentTest];
+  // edit a question
+  $scope.edit = function(quest) {
+    Data.currentQuest = quest.id;
+    $location.path('/addQuest')
+  };
+  // delete a question
+  $scope.delete = function (quest) {
+    verifyDelete('this question').then(function () {
+      var index = $scope.questions.indexOf(quest);
+      if (index != -1) { // if index = -1, it was not found
+        $scope.questions.splice(index, 1);
+        Data.setQuestions($scope.questions);
+      }
+    });
+  };
+  // Angular Function
+  $scope.done = function () {
+    $location.path('/adminTests');
+  };
+});
+>>>>>>> parent of 6d3df6c... quiz-170223-test-sql-working
 
   // $scope.loggedIn = Auth.isLoggedIn();
   // $scope.questions = Data.getQuestions();
