@@ -36,6 +36,7 @@ app.controller('mainCtrl', function ($rootScope, $scope, $location, $http, Auth,
 		firebase.auth().signOut().then(function () {
 			// Sign-out successful.
 			Auth.setUserID('');
+			localStorage.setItem("userID", '');
 			$rootScope.loggedIn = false;
 			$location.path('/login');
 			$scope.$apply();
@@ -47,7 +48,7 @@ app.controller('mainCtrl', function ($rootScope, $scope, $location, $http, Auth,
 
 // Login controller
 //
-app.controller('loginCtrl', function ($rootScope, $scope, Auth, $location, $cookies) {
+app.controller('loginCtrl', function ($rootScope, $scope, Auth, $location) {
 	$scope.user = Auth.getUser();
 	$scope.logIn = function () {
 		firebase.auth().signInWithEmailAndPassword($scope.user.email, $scope.user.password)
@@ -56,6 +57,7 @@ app.controller('loginCtrl', function ($rootScope, $scope, Auth, $location, $cook
 				Auth.setUserID($scope.user.id);
 				//        $cookies.put(loggedIn, true);
 				$rootScope.loggedIn = true;
+				localStorage.setItem("userID", j.i);
 				$location.path('/welcome');
 				$scope.$apply();
 			})
@@ -70,8 +72,18 @@ app.controller('loginCtrl', function ($rootScope, $scope, Auth, $location, $cook
 	}
 })
 
-// Admin tests
+// Tests
 //
-app.controller('adminTestsCtrl', function($scope) {
+app.controller('testsCtrl', function($scope, $location, $http, tests) {
+	$scope.tests = tests.data;
+  $scope.addTest = function () {
+//    $location.path("/createTest");
+		$location.path('/createTest');
+	};
+});
+
+// Add Test
+//
+app.controller('createTestCtrl', function($scope) {
 
 });

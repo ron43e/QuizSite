@@ -1,7 +1,7 @@
 
 app.config(function ($routeProvider, $locationProvider) {
   //  $locationProvider.html5Mode(true).hashPrefix('*');
-  $locationProvider.hashPrefix('');
+//  $locationProvider.hashPrefix('');
   $routeProvider
     .when("/", {
       templateUrl: "pages/main.html"
@@ -23,14 +23,19 @@ app.config(function ($routeProvider, $locationProvider) {
     //   templateUrl: "pages/adminScores.html",
     //   controller: "adminCtrl"
     // })
-    .when("/adminTests", {
-      templateUrl: "pages/adminTests.html",
-      controller: "adminTestsCtrl"
+    .when("/tests", {
+      templateUrl: "pages/tests.html",
+      controller: "testsCtrl",
+      resolve: {
+        tests: function(data) {
+          return data.getTests();
+        }
+      }
     })
-    // .when("/createTest", {
-    //   templateUrl: "pages/createTest.html",
-    //   controller: "mainCtrl"
-    // })
+    .when("/createTest", {
+      templateUrl: "pages/createTest.html",
+      controller: "createTestCtrl"
+    })
     // .when("/addQuest", {
     //   templateUrl: "pages/addQuest.html",
     //   controller: "addQuestCtrl"
@@ -50,5 +55,8 @@ app.config(function ($routeProvider, $locationProvider) {
     .when("/badLogin", {
       templateUrl: "pages/badLogin.html",
       controller: "mainCtrl"
-    })
+    });
+
+    // use the HTML5 History API
+    $locationProvider.html5mode = true;
 });
