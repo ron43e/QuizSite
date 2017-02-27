@@ -109,7 +109,6 @@ app.controller('adminCtrl', function ($scope, Auth, $location) {
 //
 app.controller('addQuestCtrl', function ($scope, $location, Auth, Data) {
   $scope.loggedIn = Auth.isLoggedIn();
-<<<<<<< HEAD
   // $http({
   //   method: 'GET',
   //   url: '../api/questions/read.php'
@@ -182,7 +181,6 @@ app.controller('adminTestsCtrl', function ($scope, $location, Auth, Data, $http)
   //   .then(function (response) {
   //     $scope.tests = response.data.records;
   //   });
-=======
   $scope.test = tests[Data.currentTest];
   $scope.questNum = Data.currentQuest;
   $scope.quest = questions[Data.currentQuest];
@@ -198,10 +196,6 @@ app.controller('adminTestsCtrl', function ($scope, $location, Auth, $mdDialog, D
   $scope.loggedIn = Auth.isLoggedIn();
   $scope.tests = Data.getTests();
   $scope.questions = Data.getQuestions();
-<<<<<<< HEAD
->>>>>>> parent of 6d3df6c... quiz-170223-test-sql-working
-=======
->>>>>>> parent of 6d3df6c... quiz-170223-test-sql-working
   //  $scope.questions = questions;
   //  $scope.tests = tests;
   $scope.addTest = function () {
@@ -228,9 +222,7 @@ app.controller('adminTestsCtrl', function ($scope, $location, Auth, $mdDialog, D
 // Controller for adminEditTest - editing a test
 //
 app.controller('editTestCtrl', function ($scope, $location, Auth, Data, verifyDelete) {
-<<<<<<< HEAD
   console.log('in editTestCtrl');
-=======
   $scope.loggedIn = Auth.isLoggedIn();
   $scope.questions = Data.getQuestions();
   $scope.test = tests[Data.currentTest];
@@ -254,7 +246,6 @@ app.controller('editTestCtrl', function ($scope, $location, Auth, Data, verifyDe
     $location.path('/adminTests');
   };
 });
->>>>>>> parent of 6d3df6c... quiz-170223-test-sql-working
 
   // $scope.loggedIn = Auth.isLoggedIn();
   // $scope.questions = Data.getQuestions();
@@ -278,4 +269,4 @@ app.controller('editTestCtrl', function ($scope, $location, Auth, Data, verifyDe
   // $scope.done = function () {
   //   $location.path('/adminTests');
   // };
-});
+//});
