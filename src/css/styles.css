@@ -41,6 +41,9 @@ ul li {
 .error {
   color: red; }
 
+.green {
+  color: #1abc9c; }
+
 #jumbotron,
 .jumbotron {
   width: 800px;
@@ -278,6 +281,8 @@ fieldset {
   display: flex;
   flex-flow: row;
   clear: both; }
+  #editTest .editTest .topDiv.nameDiv.testName {
+    width: 250px; }
   #editTest .editTest .leftDiv {
     margin: 4px;
     padding: 5px;
@@ -292,23 +297,35 @@ fieldset {
     flex: 3 1 80%;
     order: 2; }
     #editTest .editTest .rightDiv table {
-      width: 600px;
-      margin: 0 auto; }
+      width: 100%;
+      margin: 0 auto;
+      table-layout: fixed; }
       #editTest .editTest .rightDiv table tr th {
         border-bottom: 2px solid wheat;
         padding-bottom: .4em; }
         #editTest .editTest .rightDiv table tr th:not(:first-child) {
           text-align: center; }
+        #editTest .editTest .rightDiv table tr th.quest {
+          width: 90%; }
+        #editTest .editTest .rightDiv table tr th.edit {
+          width: 5%; }
+        #editTest .editTest .rightDiv table tr th.del {
+          width: 5%; }
       #editTest .editTest .rightDiv table tr:nth-child(2) td {
         padding-top: 10px; }
-      #editTest .editTest .rightDiv table tr td:not(:first-child) {
-        text-align: center; }
-      #editTest .editTest .rightDiv table tr td.name {
-        width: 50%; }
-      #editTest .editTest .rightDiv table tr td.time {
-        width: 20%; }
-      #editTest .editTest .rightDiv table tr td.tdn {
-        width: 15%; }
+      #editTest .editTest .rightDiv table tr td {
+        max-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap; }
+        #editTest .editTest .rightDiv table tr td:not(:first-child) {
+          text-align: center; }
+        #editTest .editTest .rightDiv table tr td.name {
+          width: 50%; }
+        #editTest .editTest .rightDiv table tr td.time {
+          width: 20%; }
+        #editTest .editTest .rightDiv table tr td.tdn {
+          width: 15%; }
 
 #editTest header,
 #editTest footer {

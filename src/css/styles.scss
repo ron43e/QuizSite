@@ -61,6 +61,10 @@ ul {
     color: red;
 }
 
+.green {
+    color: $green;
+}
+
 #jumbotron,
 .jumbotron {
     width: 800px;
@@ -384,12 +388,17 @@ fieldset {
         display: flex;
         flex-flow: row;
         clear: both;
+        .topDiv {
+            &.nameDiv {
+                &.testName {
+                    width: 250px;
+                }
+            }
+        }
         .leftDiv {
             margin: 4px;
             padding: 5px;
             border-right: 1px solid #8888bb;
-//            border-radius: 7pt;
-//            background: #ccccff;
             flex: 1 6 20%;
             order: 1;
             input {
@@ -401,14 +410,12 @@ fieldset {
         .rightDiv {
             margin: 4px;
             padding: 15px;
-//            border: 1px solid #cccc33;
-//            border-radius: 7pt;
-//            background: #dddd88;
             flex: 3 1 80%;
             order: 2;
             table {
-                width: 600px;
+                width: 100%;
                 margin: 0 auto;
+                table-layout: fixed;
                 tr {
                     th {
                         border-bottom: 2px solid wheat;
@@ -416,11 +423,24 @@ fieldset {
                         &:not(:first-child) {
                             text-align: center;
                         }
+                        &.quest {
+                            width: 90%;
+                        }
+                        &.edit {
+                            width: 5%;
+                        }
+                        &.del {
+                            width: 5%;
+                        }
                     }
                     &:nth-child(2) td {
                         padding-top: 10px;
                     }
                     td {
+                        max-width: 0;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
                         // &:first-child {
                         // 	padding-top: .5em;
                         // }
@@ -443,15 +463,6 @@ fieldset {
                 }
             }
         }
-        // aside {
-        // 	margin: 4px;
-        // 	padding: 5px;
-        // 	border: 1px solid #8888bb;
-        // 	border-radius: 7pt;
-        // 	background: #ccccff;
-        // 	flex: 1 6 20%;
-        // 	order: 3;
-        // }
     }
     header,
     footer {

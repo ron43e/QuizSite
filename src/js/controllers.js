@@ -9,10 +9,10 @@ var config = {
 firebase.initializeApp(config);
 
 // create the controller and inject Angular's $scope
-app.controller('mainCtrl', function ($rootScope, $scope, $location, $http, Auth, Data) {
+app.controller('mainCtrl', function ($rootScope, $scope, $location, $http, Auth, data) {
 	$scope.admin = true;
-	Data.setTests(tests);
-	Data.setQuestions(questions);
+	data.setTests(tests);
+	data.setQuestions(questions);
 	Auth.setUser = {
 		id: '',
 		name: 'James',
@@ -74,19 +74,41 @@ app.controller('loginCtrl', function ($rootScope, $scope, Auth, $location) {
 
 // Tests
 //
-app.controller('testsCtrl', function($scope, $location, $http, tests) {
+app.controller('testsCtrl', function ($scope, $location, data, tests) {
 	$scope.tests = tests.data;
-  $scope.addTest = function () {
-//    $location.path("/createTest");
+	$scope.addTest = function () {
 		$location.path('/createTest');
 	};
-	$scope.editTest = function(test) {
-
+	$scope.editTest = function (test) {
+		data.currentTest = test;
+		$location.path('/editTest');
 	};
 });
 
 // Add Test
 //
-app.controller('createTestCtrl', function($scope) {
+app.controller('createTestCtrl', function ($scope) {
 
+});
+
+app.controller('editTestCtrl', function ($scope, $location, data) {
+	$scope.tests = data.tests();
+	$scope.curTest = data.currentTest;
+	$scope.questions = data.questions();
+	// edit a question
+	$scope.edit = function(quest) {
+		data.curQuest = quest;
+		$location.path('/editQuest')
+	}
+	// finished
+	$scope.done = function() {
+		$location.path('/tests')
+	}
+});
+
+// Edit a Question
+//
+app.controller('editQuestCtrl', function($scope, $location, data) {
+	var quest = data.questions();
+	$scope.quest = quest[data.curQuest];
 });
