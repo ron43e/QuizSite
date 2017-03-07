@@ -183,18 +183,20 @@ fieldset {
 .addQuest {
   width: 100%;
   margin: 0 auto;
-  color: #34495e; }
+  color: #34495e;
+  overflow: hidden; }
   .addQuest .question {
     margin-bottom: 10px; }
   .addQuest .testname {
     width: 400px;
-    margin-top: 20px; }
+    margin-top: 10px; }
   .addQuest button {
     float: right; }
   .addQuest input {
     width: 100%; }
   .addQuest table {
-    width: 900px;
+    width: 100%;
+    min-width: 400px;
     margin: 0 auto; }
     .addQuest table textarea {
       width: 100%; }
@@ -202,6 +204,10 @@ fieldset {
       padding-bottom: 1em; }
     .addQuest table tr.spaceUnder > th {
       padding-bottom: .5em; }
+    .addQuest table tr th.th1 {
+      width: 15%; }
+    .addQuest table tr th.th2 {
+      width: 70%; }
     .addQuest table td.tdLeft {
       text-align: right;
       padding-right: 10px;

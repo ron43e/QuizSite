@@ -238,18 +238,19 @@ fieldset {
     }
 }
 
-// addQuest.html
+// addQuest.html / quest.html
 //
 .addQuest {
     width: 100%;
     margin: 0 auto;
     color: $darkblue;
+    overflow: hidden;
     .question {
         margin-bottom: 10px;
     }
     .testname {
         width: 400px;
-        margin-top: 20px;
+        margin-top: 10px;
     }
     button {
         float: right;
@@ -258,7 +259,8 @@ fieldset {
         width: 100%;
     }
     table {
-        width: 900px;
+        width: 100%;
+        min-width: 400px;
         margin: 0 auto;
         textarea {
             width: 100%;
@@ -269,6 +271,14 @@ fieldset {
             }
             &.spaceUnder>th {
                 padding-bottom: .5em;
+            }
+            th {
+                &.th1 {
+                    width: 15%;
+                }
+                &.th2 {
+                    width: 70%;
+                }
             }
         }
         td {
