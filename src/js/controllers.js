@@ -111,4 +111,16 @@ app.controller('editTestCtrl', function ($scope, $location, data) {
 app.controller('editQuestCtrl', function($scope, $location, data) {
 	var quest = data.questions();
 	$scope.quest = quest[data.curQuest];
+	$scope.test = data.currentTest;
+	// next button clicked
+	$scope.next = function() {
+		// save question
+	};
+	// previous button
+	$scope.prev = function() {
+		// save question
+	};
+	$scope.finished = function() {
+		// save question
+	};
 });

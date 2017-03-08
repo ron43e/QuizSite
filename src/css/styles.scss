@@ -262,6 +262,7 @@ fieldset {
         width: 100%;
         min-width: 400px;
         margin: 0 auto;
+        table-layout: fixed;
         textarea {
             width: 100%;
         }
@@ -275,6 +276,7 @@ fieldset {
             th {
                 &.th1 {
                     width: 15%;
+                    padding: 0;
                 }
                 &.th2 {
                     width: 70%;

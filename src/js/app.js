@@ -15,19 +15,9 @@ var app = angular.module('myApp', ['ngRoute', 'LocalStorageModule'])
       $rootScope.loggedIn = false;
     }
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
-      console.log('Next Template: ' + next.$$route.templateUrl);
-      console.log('Original Path: ' + next.$$route.originalPath);
-      console.log('Controller: ' + next.$$route.controller);
-
-      //   //       if (!Auth.isLoggedIn()) {
-      //   //         console.log('DENY');
-      //   //         //        event.preventDefault();
-      //   //         $location.path('/login');
-      //   //       }
-      //   //       else {
-      //   //         console.log('ALLOW');
-      //   // //        $location.path('/welcome');
-      //   //       }
+      // console.log('Next Template: ' + next.$$route.templateUrl);
+      // console.log('Original Path: ' + next.$$route.originalPath);
+      // console.log('Controller: ' + next.$$route.controller);
     });
     $rootScope.$on('$locationChangeStart', function (event, newUrl, oldUrl) {
       // both newUrl and oldUrl are strings
@@ -36,10 +26,6 @@ var app = angular.module('myApp', ['ngRoute', 'LocalStorageModule'])
       // check if current location matches route
       var routeClean = function (route) {
         return (routesThatDontRequireAuth.indexOf(route) > -1);
-        // return _.find(routesThatDontRequireAuth,
-        //   function (noAuthRoute) {
-        //     return _find(route, noAuthRoute);
-        //   });
       };
       // if route requires auth and user is not logged in
       if (!routeClean($location.url()) && !Auth.isLoggedIn()) {

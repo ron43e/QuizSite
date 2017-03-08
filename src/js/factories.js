@@ -37,6 +37,9 @@ app.factory('data', ['$http', function ($http) {
 				return data;
 			});
 			return promise;
+		},
+		saveQuest: function(question) {
+
 		}
 	}
 }])

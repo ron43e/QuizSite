@@ -25,27 +25,28 @@
 		<tr>
 			<td class='tdLeft'>Answer #1</td>
 			<td class='tdCenter'><input class="form-control" type='text' ng-model='quest.answer_1' /></td>
-			<td class='tdRight'><input type="radio" name="correct" ng-model="quest.correct" value="1" /></td>
+			<td class='tdRight'><input type="radio" name="correct" ng-model="quest.correct_ans" value="1" /></td>
 		</tr>
 		<tr>
 			<td class='tdLeft'>Answer #2</td>
 			<td class='tdCenter'><input class="form-control" type='text' ng-model='quest.answer_2' /></td>
-			<td class='tdRight'><input type="radio" name="correct" ng-model="quest.correct" value="2" /></td>
+			<td class='tdRight'><input type="radio" name="correct" ng-model="quest.correct_ans" value="2" /></td>
 		</tr>
 		<tr>
 			<td class='tdLeft'>Answer #3</td>
 			<td class='tdCenter'><input class="form-control" type='text' ng-model='quest.answer_3' /></td>
-			<td class='tdRight'><input type="radio" name="correct" ng-model="quest.correct" value="3" /></td>
+			<td class='tdRight'><input type="radio" name="correct" ng-model="quest.correct_ans" value="3" /></td>
 		</tr>
 		<tr>
 			<td class='tdLeft'>Answer #4</td>
 			<td class='tdCenter'><input class="form-control" type='text' ng-model='quest.answer_4' /></td>
-			<td class='tdRight'><input type="radio" name="correct" ng-model="quest.correct" value="4" /></td>
+			<td class='tdRight'><input type="radio" name="correct" ng-model="quest.correct_ans" value="4" /></td>
 		</tr>
 	</table>
 	<hr>
 	<div class="btns">
 		<button type="button" class="btn btn-success" ng-click="finished()">Finish</button>
 		<button type="button" class="btn btn-success" ng-click="next()">Next</button>
+		<button type="button" class="btn btn-success" ng-click="prev()">Previous</button>
 	</div>
 </form>
