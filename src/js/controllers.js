@@ -1,4 +1,3 @@
-
 // Initialize Firebase
 var config = {
   apiKey: "AIzaSyBo_GwY19BYQ6HTSdhLkXwXayEjoQrCN60",
@@ -12,15 +11,20 @@ firebase.initializeApp(config);
 
 
 // create the controller and inject Angular's $scope
-app.controller('mainCtrl', function ($scope, $location, $rootScope, $http, Auth, Data) {
+app.controller('mainCtrl', function ($rootScope, $scope, $location, $http, Auth, Data) {
+  console.log('in mainCtrl');
+
+  $scope.admin = true;
   Data.setTests(tests);
   Data.setQuestions(questions);
-  $scope.user = {
+  Auth.setUser = {
     id: '',
     name: 'James',
     email: 'jhindmon@gmail.com',
-    password: 'dallas'
+    password: 'dallas',
+    admin: true
   }
+  $scope.user = Auth.getUser();
   var today = new Date();
   var dd = today.getDate();
   var mm = today.getMonth() + 1; //January is 0!
@@ -51,9 +55,8 @@ app.controller('mainCtrl', function ($scope, $location, $rootScope, $http, Auth,
   $scope.logOut = function () {
     firebase.auth().signOut().then(function () {
       // Sign-out successful.
+      Auth.setUserID('');
       $rootScope.loggedIn = false;
-      $rootScope.admin = false;
-      Auth.setUser('');
       $location.path('/');
       $scope.$apply();
     }, function (error) {
@@ -75,14 +78,17 @@ app.controller('resultsCtrl', function ($scope, $http) {
   // ]
 });
 
-app.controller('loginCtrl', function ($rootScope, $scope, Auth, $location) {
+app.controller('loginCtrl', function ($rootScope, $scope, Auth, $location, $cookies) {
+  console.log('in loginCtrl');
+
+  $scope.user = Auth.getUser();
   $scope.logIn = function () {
     firebase.auth().signInWithEmailAndPassword($scope.user.email, $scope.user.password)
       .then(function (j) {
         $scope.user.id = j.i; // save auth id
+        Auth.setUserID($scope.user.id);
+        //        $cookies.put(loggedIn, true);
         $rootScope.loggedIn = true;
-        $rootScope.admin = true;
-        Auth.setUser($scope.user.id);
         $location.path('/welcome');
         $scope.$apply();
       })
@@ -95,59 +101,122 @@ app.controller('loginCtrl', function ($rootScope, $scope, Auth, $location) {
   }
 })
 
-app.controller('adminCtrl', function ($rootScope, $scope, Auth, $location) {
+app.controller('adminCtrl', function ($scope, Auth, $location) {
+  console.log('in adminCtrl');
 });
 
-app.controller('addQuestCtrl', function ($scope, $location) {
+// Controller for addQuest.html - editing a question for a test
+//
+app.controller('addQuestCtrl', function ($scope, $location, Auth, Data) {
   $scope.loggedIn = Auth.isLoggedIn();
-  $scope.test = {
-    name: 'Server 1'
-  };
-  $scope.questNum = 1;
-  $scope.quest = {
-    question: '',
-    ans1: '',
-    ans2: '',
-    ans3: '',
-    ans4: '',
-    correct: '1'
-  }
+  // $http({
+  //   method: 'GET',
+  //   url: '../api/questions/read.php'
+  // }).then(
+  //   function successCallback(response) {
+  //     $scope.names = response.data.records;
+  //   },
+  //   function (e) {
+  //     var err = e;
+  //   }
+  // );
+  $scope.test = tests[Data.currentTest];
+  $scope.questNum = Data.currentQuest;
+  $scope.quest = questions[Data.currentQuest];
   // save question & add another
   $scope.next = function () {
     // save question
     $scope.questNum++;
   }
-});
-
-app.controller('adminTestsCtrl', function ($rootScope, $scope, $location, Auth, $mdDialog, Data) {
-  $scope.loggedIn = Auth.isLoggedIn();
-  $scope.tests = Data.getTests();
-  $scope.questions = Data.getQuestions();
-//  $scope.questions = questions;
-//  $scope.tests = tests;
-  $scope.addTest = function () {
-    //    $location.path("/createTest");
-    this.showTabDialog = function (ev) {
-      $mdDialog.show({
-        controller: function () {
-          return self;
-        },
-        controllerAs: 'ctrl',
-        templateUrl: 'tabDialog.tmpl.html',
-      });
-    };
-  }
-  // edit a test
-  $scope.editTest = function (test) {
-    $rootScope.currentTest = test;
+  // finish button clicked
+  // Angular Function
+  $scope.finished = function () {
     $location.path('/editTest');
   };
 });
 
-app.controller('editTestCtrl', function ($rootScope, $scope, $location, Auth, Data, verifyDelete) {
+// CREATE A NEW TEST
+//
+app.controller('createTestCtrl', function ($scope, $routeParams, Auth) {
+  console.log('in createTestCtrl');
+
+  $scope.loggedIn = Auth.isLoggedIn();
+  $scope.newTest = {
+    name: 'new test',
+    minutes: '15',
+    passing: '70'
+  }
+  $scope.save = function (test) {
+    // save test here
+  };
+});
+
+// Controller for adminTests.html - tests
+//
+app.controller('adminTestsCtrl', function ($scope, $location, Auth, $mdDialog, Data, $http) {
+  console.log('in adminTestsCtrl');
+
+  $scope.loggedIn = Auth.isLoggedIn();
+  $scope.tests = Data.getTests();
+  $scope.questions = Data.getQuestions();
+  // read products
+  //  $scope.getAll = function () {
+  // $http({
+  //   method: 'GET',
+  //   url: '../api/tests/read.php'
+  // }).then(
+  //   function successCallback(response) {
+  //     console.log('http - success');
+
+  //     $scope.names = response.data.records;
+  //   },
+  //   function (e) {
+  //     console.log('http - error');
+
+  //     var err = e;
+  //   }
+  // );
+  //  }
+  // $http.get("../php/pdoData.php")
+  //   .then(function (response) {
+  //     $scope.tests = response.data.records;
+  //   });
+  //  $scope.questions = questions;
+  //  $scope.tests = tests;
+  $scope.addTest = function () {
+    console.log('in addTest');
+
+    $location.path("/createTest");
+    // this.showTabDialog = function (ev) {
+    //   $mdDialog.show({
+    //     controller: function () {
+    //       return self;
+    //     },
+    //     controllerAs: 'ctrl',
+    //     templateUrl: 'tabDialog.tmpl.html',
+    //   });
+    // };
+  }
+  // edit a test
+  $scope.editTest = function (test) {
+    Data.currentTest = test;
+    $location.path('/editTest');
+  };
+});
+
+// Controller for adminEditTest - editing a test
+//
+app.controller('editTestCtrl', function ($scope, $location, Auth, Data, verifyDelete) {
+  console.log('in editTestCtrl');
+
   $scope.loggedIn = Auth.isLoggedIn();
   $scope.questions = Data.getQuestions();
-  $scope.test = tests[$rootScope.currentTest];
+  $scope.test = tests[Data.currentTest];
+  // edit a question
+  $scope.edit = function (quest) {
+    Data.currentQuest = quest.id;
+    $location.path('/addQuest')
+  };
   // delete a question
   $scope.delete = function (quest) {
     verifyDelete('this question').then(function () {
@@ -157,5 +226,9 @@ app.controller('editTestCtrl', function ($rootScope, $scope, $location, Auth, Da
         Data.setQuestions($scope.questions);
       }
     });
+  };
+  // Angular Function
+  $scope.done = function () {
+    $location.path('/adminTests');
   };
 });

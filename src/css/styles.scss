@@ -280,8 +280,8 @@ fieldset {
         margin: 0 auto;
     }
     .topDiv {
-        width: 600px;
-        margin: 0 auto;
+        width: 800px;
+        margin: 0 auto 10px;
         overflow: hidden;
         h3 {
             float: left;
@@ -291,8 +291,11 @@ fieldset {
         }
     }
     table {
-        width: 600px;
+        width: 800px;
         margin: 0 auto;
+        th:not(:first-child) {
+            padding-left: 10px;
+        }
         tr {
             th {
                 border-bottom: 2px solid wheat;
@@ -339,12 +342,21 @@ fieldset {
     .topDiv {
         min-height: 50px;
         border-bottom: 1px solid #8888bb;
+        overflow: hidden;
+        padding: 0;
+        position: relative;
         div {
             &.nameDiv {
-                float: left;
+                padding: 0;
+                position: absolute;
+                left: 0;
+                bottom: 10px;
             }
             &.doneDiv {
-                float: right;
+                padding: 0;
+                position: absolute;
+                right: 0;
+                bottom: 10px;
             }
         }
     }

@@ -1,26 +1,33 @@
 
-var app = angular.module('myApp', ['ngRoute', 'ngMaterial'])
+var app = angular.module('myApp', ['ngMaterial', 'ngCookies', 'ngRoute'])
 
-  .run(['$rootScope', '$location', 'Auth', function ($rootScope, $location, Auth, $cookies) {
-    $rootScope.loggedIn = false;
-    $rootScope.admin = true;
-    $rootScope.currentTest = '';
+  .run(['$rootScope', '$location', 'Auth', function ($rootScope, $location, Auth, $cookies, $route, $routeParams, $routeProvider) {
+    //    $rootScope.loggedIn = $cookies.get('loggedIn');
+    // enumerate routes that don't need authentication
+    console.log('in .run');
+
+    var routesThatDontRequireAuth = ['/login', '/home'];
+    // check if current location matches route
+    var routeClean = function (route) {
+      return (routesThatDontRequireAuth.indexOf(route) > -1);
+      // return _.find(routesThatDontRequireAuth,
+      //   function (noAuthRoute) {
+      //     return _find(route, noAuthRoute);
+      //   });
+    };
+    // if route requires auth and user is not logged in
+    if (!routeClean($location.url()) && !Auth.isLoggedIn()) {
+      // redirect back to login
+      console.log('bad route');
+
+      $rootScope.loggedIn = false;
+      $location.path('/login');
+    }
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
-      // enumerate routes that don't need authentication
-      var routesThatDontRequireAuth = ['/login', '/'];
-      // check if current location matches route
-      var routeClean = function (route) {
-        return (routesThatDontRequireAuth.indexOf(route) > -1);
-        // return _.find(routesThatDontRequireAuth,
-        //   function (noAuthRoute) {
-        //     return _find(route, noAuthRoute);
-        //   });
-      };
-      // if route requires auth and user is not logged in
-      if (!routeClean($location.url()) && !Auth.isLoggedIn()) {
-        // redirect back to login
-        $location.path('/login');
-      }
+       console.log('Next Template: ' + next.$$route.templateUrl);
+       console.log('Original Path: ' + next.$$route.originalPath);
+       console.log('Controller: ' + next.$$route.controller);
+
       //       if (!Auth.isLoggedIn()) {
       //         console.log('DENY');
       //         //        event.preventDefault();
@@ -39,6 +46,8 @@ var app = angular.module('myApp', ['ngRoute', 'ngMaterial'])
 
   .factory('Data', function () {
     var tests;
+    var currentTest;
+    var currentQuest;
     var questions;
     return {
       setTests: function (testList) {
@@ -57,13 +66,29 @@ var app = angular.module('myApp', ['ngRoute', 'ngMaterial'])
   })
 
   .factory('Auth', function () {
-    var user;
+    var user = {
+      id: '',
+      name: '',
+      email: '',
+      password: '',
+      admin: false
+    };
     return {
-      setUser: function (aUser) {
-        user = aUser;
+      setUserID: function (aUser) {
+        user.id = aUser;
+      },
+      setUser: function (auser) {
+        user.id = auser.id;
+        user.name = auser.name;
+        user.email = auser.email;
+        user.password = auser.password;
+        user.admin = auser.admin;
+      },
+      getUser: function () {
+        return user;
       },
       isLoggedIn: function () {
-        return (user) ? user : false;
+        return (user.id) ? user.id : false;
       }
     }
   })
@@ -82,3 +107,25 @@ var app = angular.module('myApp', ['ngRoute', 'ngMaterial'])
       return $mdDialog.show(confirm);
     }
   })
+
+  // Use mdDialog and prompt for an input
+  .factory('prompt', function ($mdDialog) {
+    return function (title, content, placehldr, initValue, okStr, canStr) {
+      var confirm = $mdDialog.prompt()
+        .title(title)
+        .textContent(content)
+        .placeholder(placehldr)
+        .ariaLabel(placehldr)
+        .initialValue(initValue)
+        .targetEvent(ev)
+        .ok(okStr)
+        .cancel(canStr);
+
+      // $mdDialog.show(confirm).then(function (result) {
+      //   $scope.status = 'You decided to name your dog ' + result + '.';
+      // }, function () {
+      //   $scope.status = 'You didn\'t name your dog.';
+      // });
+    };
+  });
+
