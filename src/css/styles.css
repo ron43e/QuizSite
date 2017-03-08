@@ -344,3 +344,110 @@ fieldset {
   border: 1px solid #eebb55;
   border-radius: 7pt;
   background: #ffeebb; }
+
+#createTest {
+  width: 30%;
+  margin: 0 auto;
+  padding: 30px;
+  overflow: hidden;
+  /* form starting stylings ------------------------------- */
+  /* ANIMATIONS ================ */ }
+  #createTest button {
+    float: right; }
+  #createTest h2 {
+    text-align: center;
+    margin-bottom: 50px; }
+  #createTest h2 small {
+    font-weight: normal;
+    color: #888;
+    display: block; }
+  #createTest p {
+    font-size: 12pt; }
+  #createTest .group {
+    position: relative;
+    margin-bottom: 45px;
+    /* LABEL ======================================= */
+    /* BOTTOM BARS ================================= */
+    /* HIGHLIGHTER ================================== */ }
+    #createTest .group input {
+      font-size: 18px;
+      padding: 10px 10px 10px 5px;
+      display: block;
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid #757575;
+      /* active state */
+      /* active state */
+      /* active state */ }
+      #createTest .group input:focus {
+        outline: none; }
+      #createTest .group input:focus ~ label,
+      #createTest .group input:valid ~ label {
+        top: -20px;
+        font-size: 14px;
+        color: #5264AE; }
+      #createTest .group input:focus ~ .bar:before,
+      #createTest .group input:focus ~ .bar:after {
+        width: 50%; }
+      #createTest .group input:focus ~ .highlight {
+        -webkit-animation: inputHighlighter 0.3s ease;
+        -moz-animation: inputHighlighter 0.3s ease;
+        animation: inputHighlighter 0.3s ease; }
+    #createTest .group label {
+      color: #999;
+      font-size: 18px;
+      font-weight: normal;
+      position: absolute;
+      pointer-events: none;
+      left: 5px;
+      top: 10px;
+      transition: 0.2s ease all;
+      -moz-transition: 0.2s ease all;
+      -webkit-transition: 0.2s ease all; }
+    #createTest .group .bar {
+      position: relative;
+      display: block;
+      width: 100%; }
+      #createTest .group .bar:before, #createTest .group .bar:after {
+        content: '';
+        height: 2px;
+        width: 0;
+        bottom: 1px;
+        position: absolute;
+        background: #5264AE;
+        transition: 0.2s ease all;
+        -moz-transition: 0.2s ease all;
+        -webkit-transition: 0.2s ease all; }
+      #createTest .group .bar:before {
+        left: 50%; }
+      #createTest .group .bar:after {
+        right: 50%; }
+    #createTest .group .highlight {
+      position: absolute;
+      height: 60%;
+      width: 100px;
+      top: 25%;
+      left: 0;
+      pointer-events: none;
+      opacity: 0.5; }
+
+@-webkit-keyframes inputHighlighter {
+  from {
+    background: #5264AE; }
+  to {
+    width: 0;
+    background: transparent; } }
+
+@-moz-keyframes inputHighlighter {
+  from {
+    background: #5264AE; }
+  to {
+    width: 0;
+    background: transparent; } }
+
+@keyframes inputHighlighter {
+  from {
+    background: #5264AE; }
+  to {
+    width: 0;
+    background: transparent; } }

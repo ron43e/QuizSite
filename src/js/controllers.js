@@ -87,8 +87,10 @@ app.controller('testsCtrl', function ($scope, $location, data, tests) {
 
 // Add Test
 //
-app.controller('createTestCtrl', function ($scope) {
-
+app.controller('createTestCtrl', function ($scope, $location, data) {
+$scope.next = function() {
+  $location.path('/addQuest');
+};
 });
 
 app.controller('editTestCtrl', function ($scope, $location, data) {
@@ -123,4 +125,19 @@ app.controller('editQuestCtrl', function($scope, $location, data) {
 	$scope.finished = function() {
 		// save question
 	};
+});
+
+// Add Questions
+//
+app.controller('addQuestCtrl', function($scope, $location, data) {
+  $scope.questNum = 1;
+  $scope.next = function(quest) {
+    // save question
+    $scope.questNum++;
+  };
+  $scope.prev = function(quest) {
+    if ($scope.questNum > 1) {
+      $scope.questNum--;
+    }
+  }
 });

@@ -35,10 +35,10 @@ app.config(function ($routeProvider, $locationProvider) {
       templateUrl: "pages/createTest.html",
       controller: "createTestCtrl"
     })
-    // .when("/addQuest", {
-    //   templateUrl: "pages/addQuest.html",
-    //   controller: "addQuestCtrl"
-    // })
+    .when("/addQuest", {
+      templateUrl: "pages/quest.html",
+      controller: "addQuestCtrl"
+    })
     // .when("/addQuestion", {
     //   templateUrl: "pages/addquestions.html",
     //   controller: "mainCtrl"
