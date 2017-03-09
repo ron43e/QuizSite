@@ -11,7 +11,7 @@
 					<span>For Test:</span>
 					<span>{{test.name}}</span>
 					<span> - Question No: </span>
-					<span>{{questNum}}</span>
+					<span>{{questNum + 1}}</span>
 				</div>
 			</th>
 			<th class="th1">Correct</th>
@@ -21,7 +21,7 @@
 			<td><textarea class="form-control" name="quest" type="text" ng-model="quest.question" ng-class="{'has-error': questForm.quest.$invalid}" ng-minlength="25" required /></td>
 			<td class='tdRight'></td>
 		</tr>
-		<tr>
+		<tr class="group">
 			<td class='tdLeft'>Answer #1</td>
 			<td class='tdCenter'><input class="form-control" name="ans1" type='text' ng-model='quest.answer_1' ng-class="{'has-error': questForm.ans1.$invalid}" required /></td>
 			<td class='tdRight'><input type="radio" name="correct" ng-model="quest.correct_ans" value="1" ng-required="!quest.correct_ans" /></td>
@@ -45,7 +45,7 @@
 	<hr>
 	<div class="btns">
 		<button type="button" class="btn btn-success" ng-click="finished()" ng-class="{ 'btnDisabled' : questForm.$invalid && !questForm.$pristine }" ng ng-disabled="questForm.$invalid">Finish</button>
-		<button type="button" class="btn btn-success" ng-click="next()" ng-class="{ 'btnDisabled' : questForm.$invalid && !questForm.$pristine }" ng ng-disabled="questForm.$invalid">Next</button>
-		<button type="button" class="btn btn-success" ng-click="prev()" ng-show="questNum > 1">Previous</button>
+		<button type="button" class="btn btn-success" ng-click="next()" ng-class="{ 'btnDisabled' : questForm.$invalid && !questForm.$pristine }" ng-disabled="questForm.$invalid || (questNum == (numQuests-1))">Next</button>
+		<button type="button" class="btn btn-success" ng-click="prev()" ng-show="questNum > 0">Previous</button>
 	</div>
 </form>

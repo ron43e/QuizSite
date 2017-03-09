@@ -27,7 +27,7 @@ app.config(function ($routeProvider, $locationProvider) {
       controller: "testsCtrl",
       resolve: {
         tests: function (data) {
-          return data.getTests();
+          return data.readDBTests();
         }
       }
     })
@@ -48,7 +48,7 @@ app.config(function ($routeProvider, $locationProvider) {
       controller: "editTestCtrl",
       resolve: {
         quests: function (data) {
-          return data.getQuest();
+          return data.readDBQuest();
         }
       }
     })

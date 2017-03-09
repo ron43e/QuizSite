@@ -1,22 +1,10 @@
 app.factory('data', ['$http', function ($http) {
-	var tests;
-	var currentTest;
-	var currentQuest;
-	var questions;
+	var tests = [];
+	var curTest = {};
+	var curQuestNum;
+	var questions = [];
 	return {
-		setTests: function (testList) {
-			tests = testList;
-		},
-		setQuestions: function (questList) {
-			questions = questList;
-		},
-		tests: function () {
-			return tests;
-		},
-		questions: function () {
-			return questions;
-		},
-		getTests: function () {
+		readDBTests: function () {
 			var promise = $http({
 				method: 'GET',
 				url: 'php/getTests.php'
@@ -27,7 +15,13 @@ app.factory('data', ['$http', function ($http) {
 			});
 			return promise;
 		},
-		getQuest: function () {
+		setTests: function (testList) {
+			tests = testList;
+		},
+		getTests: function() {
+			return tests;
+		},
+		readDBQuest: function () {
 			var promise = $http({
 				method: 'GET',
 				url: 'php/getQuest.php'
@@ -38,11 +32,23 @@ app.factory('data', ['$http', function ($http) {
 			});
 			return promise;
 		},
+		setQuestions: function (questList) {
+			questions = questList;
+		},
+		getQuestions: function () {
+			return questions;
+		},
 		updateQuest: function(question) {
 
 		},
 		addQuest: function(question) {
 
+		},
+		setCurQuest: function(questNum) {
+			curQuestNum = questNum;
+		},
+		getCurQuest: function() {
+			return curQuestNum;
 		}
 	}
 }])

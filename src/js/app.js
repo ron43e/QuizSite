@@ -33,7 +33,7 @@ var app = angular.module('myApp', ['ngRoute', 'LocalStorageModule'])
         $rootScope.loggedIn = false;
         $location.path('/login');
       }
-      console.log('Starting to leave %s to go to %s', oldUrl, newUrl);
+      // console.log('Starting to leave %s to go to %s', oldUrl, newUrl);
     });
   }])
 

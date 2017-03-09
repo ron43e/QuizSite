@@ -72,7 +72,7 @@ app.controller('loginCtrl', function ($rootScope, $scope, Auth, $location) {
 	}
 })
 
-// Tests
+// List Tests
 //
 app.controller('testsCtrl', function ($scope, $location, data, tests) {
 	$scope.tests = tests.data;
@@ -80,7 +80,7 @@ app.controller('testsCtrl', function ($scope, $location, data, tests) {
 		$location.path('/createTest');
 	};
 	$scope.editTest = function (test) {
-		data.currentTest = test;
+		data.curTest = test;
 		$location.path('/editTest');
 	};
 });
@@ -88,56 +88,69 @@ app.controller('testsCtrl', function ($scope, $location, data, tests) {
 // Add Test
 //
 app.controller('createTestCtrl', function ($scope, $location, data) {
-$scope.next = function() {
-  $location.path('/addQuest');
-};
+	$scope.test = {
+		name: '',
+		time: ''
+	};
+	// next button clicked
+	$scope.next = function () {
+		data.curTest = $scope.text;
+		$location.path('/addQuest');
+	};
 });
 
 app.controller('editTestCtrl', function ($scope, $location, data) {
-	$scope.tests = data.tests();
-	$scope.curTest = data.currentTest;
-	$scope.questions = data.questions();
+	$scope.tests = data.getTests();
+	$scope.curTest = data.curTest;
+	$scope.questions = data.getQuestions();
 	// edit a question
-	$scope.edit = function(quest) {
-		data.curQuest = quest;
+	$scope.edit = function (quest) {
+		data.curQuestNum = quest;
 		$location.path('/editQuest')
 	}
 	// finished
-	$scope.done = function() {
+	$scope.done = function () {
 		$location.path('/tests')
 	}
 });
 
 // Edit a Question
 //
-app.controller('editQuestCtrl', function($scope, $location, data) {
-	var quest = data.questions();
-	$scope.quest = quest[data.curQuest];
-	$scope.test = data.currentTest;
+app.controller('editQuestCtrl', function ($scope, $location, data) {
+	var quests = data.getQuestions();
+	$scope.numQuests = quests.length;
+	$scope.questNum = data.curQuestNum;
+	$scope.quest = quests[data.curQuestNum];
+	$scope.test = data.curTest;
 	// next button clicked
-	$scope.next = function() {
-		// save question
+	$scope.next = function () {
+		// TODO: save question
+		$scope.questNum = ++data.curQuestNum;
+		$scope.quest = quests[$scope.questNum];
 	};
 	// previous button
-	$scope.prev = function() {
-		// save question
+	$scope.prev = function () {
+		// TODO: save question
+		$scope.questNum = --data.curQuestNum;
+		$scope.quest = quests[$scope.questNum];
 	};
-	$scope.finished = function() {
-		// save question
+	$scope.finished = function () {
+		// TODO: save question
 	};
 });
 
 // Add Questions
 //
-app.controller('addQuestCtrl', function($scope, $location, data) {
-  $scope.questNum = 1;
-  $scope.next = function(quest) {
-    // save question
-    $scope.questNum++;
-  };
-  $scope.prev = function(quest) {
-    if ($scope.questNum > 1) {
-      $scope.questNum--;
-    }
-  }
+app.controller('addQuestCtrl', function ($scope, $location, data) {
+	$scope.questNum = 1;
+	$scope.test = data.curTest;
+	$scope.next = function (quest) {
+		// save question
+		$scope.questNum++;
+	};
+	$scope.prev = function (quest) {
+		if ($scope.questNum > 1) {
+			$scope.questNum--;
+		}
+	}
 });
