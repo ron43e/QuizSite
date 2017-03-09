@@ -38,7 +38,10 @@ app.factory('data', ['$http', function ($http) {
 			});
 			return promise;
 		},
-		saveQuest: function(question) {
+		updateQuest: function(question) {
+
+		},
+		addQuest: function(question) {
 
 		}
 	}
