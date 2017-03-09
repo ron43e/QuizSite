@@ -1,0 +1,34 @@
+<div id="editTest" class="container">
+	<div class="topDiv">
+		<div class="nameDiv">Test Name: <input class="testName" type="text" ng-model="curTest.name" /></div>
+		<div class="doneDiv"><button class="btn btn-success" ng-click="done()"><i class="glyphicon glyphicon-ok"></i>  Done</button></div>
+	</div>
+	<div class="editTest">
+		<div class="leftDiv">
+			<div>Length: <input class="minutes" type="text" ng-model="curTest.minutes_allowed" /></div>
+			<div>First taken: {{curTest.first_taken}}</div>
+			<div>Last taken: {{curTest.last_taken}}</div>
+		</div>
+		<div class="rightDiv">
+			<table>
+				<tr>
+					<th class="name quest">Question</th>
+					<th class="edit">Edit</th>
+					<th class="del">Delete</th>
+				</tr>
+				<tr ng-repeat="quest in questions">
+					<td>{{quest.question}}</td>
+					<td><span class="glyphicon glyphicon-edit" ng-click="edit($index)" green-hover></span></td>
+					<td><span class="glyphicon glyphicon-trash" ng-click="delete($index)" green-hover></span></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
+
+<!--<div id='main'>
+	<article>article</article>
+	<nav>nav</nav>
+	<aside>aside</aside>
+</div>
+<footer>footer</footer>-->

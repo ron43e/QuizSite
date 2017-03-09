@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <base href="/">
+  <!--<base href="/">-->
   <meta charset="utf-8">
   <style media="screen"></style>
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,9 +21,10 @@
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
   <script src="js/angular-route.min.js"></script>
+  <script src="js/angular-local-storage.min.js"></script>
   <!--<script src="js/angular-ui-router.min.js"></script>-->
   <script src="js/angular-cookies.min.js"></script>
-  <!--<script src="js/underscore.js"></script>-->
+  <script src="js/underscore-min.js"></script>
   <script src="js/bootstrap.min.js"></script>
 
   <!-- Angular Material Library -->
@@ -39,6 +40,7 @@
 
   <!-- My Scripts -->
   <script src="js/app.js"></script>
+  <script src="js/factories.js"></script>
   <script src="js/controllers.js"></script>
   <script src="js/directives.js"></script>
   <script src="js/routes.js"></script>
@@ -90,7 +92,7 @@
             <li class="dropdown" ng-show="$root.loggedIn && admin">
               <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administrator<span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#adminTests">Tests</a></li>
+                <li><a href="#tests">Tests</a></li>
                 <!--<li><a href="#/createTest">Create a test</a></li>-->
                 <li><a href="#adminScores">See scores</a></li>
                 <!--<li><a href="#/addQuestion">Add Questions</a></li>-->
@@ -108,7 +110,6 @@
         <!--/.nav-collapse -->
       </div>
     </nav>
-LoggedIn:{{$root.loggedIn}}
     <div id="pageContents">
       <div ng-view></div>
     </div>

@@ -29,10 +29,31 @@ var jhSubmitDirective = {
           // if form is not valid cancel it.
           if (!formController.$valid) return false;
           scope.$apply(function () {
-            fn(scope, { $event: event });
+            fn(scope, {
+              $event: event
+            });
           });
         });
       }
     };
   }]
 };
+
+// change class of element to green on hover
+app.directive('greenHover', [function () {
+  return {
+    link: function (scope, elem, attrs) {
+//      scope.$watch(attrs.classHover, function (newValue) {
+//        if (_.isUndefined(newValue)) return;
+        elem.bind('mouseover', function (e) {
+//          elem.addClass(attrs.classHover);
+           elem.addClass('green');
+        });
+        elem.bind('mouseleave', function (e) {
+           elem.removeClass('green');
+//          elem.removeClass(attrs.classHover);
+        })
+//      })
+    }
+  }
+}])
