@@ -41,6 +41,9 @@ ul li {
 .error {
   color: red; }
 
+.green {
+  color: #1abc9c; }
+
 #jumbotron,
 .jumbotron {
   width: 800px;
@@ -152,6 +155,9 @@ fieldset {
   border: none;
   color: #fff;
   border-radius: 5px; }
+  .formholder input[type="button"]:hover {
+    color: darkblue;
+    font-weight: bold; }
 
 .formholder input[type="button"]:hover {
   background: #1abc9c; }
@@ -167,28 +173,43 @@ fieldset {
   border: solid red 1px !important;
   box-shadow: none !important; }
 
+#badLogin .jumbotron {
+  width: 400px; }
+  #badLogin .jumbotron a {
+    color: blue; }
+    #badLogin .jumbotron a:hover {
+      color: #1abc9c; }
+
 .addQuest {
   width: 100%;
   margin: 0 auto;
-  color: #34495e; }
+  color: #34495e;
+  overflow: hidden; }
   .addQuest .question {
     margin-bottom: 10px; }
   .addQuest .testname {
     width: 400px;
-    margin-top: 20px; }
+    margin-top: 10px; }
   .addQuest button {
     float: right; }
   .addQuest input {
     width: 100%; }
   .addQuest table {
-    width: 900px;
-    margin: 0 auto; }
+    width: 100%;
+    min-width: 400px;
+    margin: 0 auto;
+    table-layout: fixed; }
     .addQuest table textarea {
       width: 100%; }
     .addQuest table tr.spaceUnder > td {
       padding-bottom: 1em; }
     .addQuest table tr.spaceUnder > th {
       padding-bottom: .5em; }
+    .addQuest table tr th.th1 {
+      width: 15%;
+      padding: 0; }
+    .addQuest table tr th.th2 {
+      width: 70%; }
     .addQuest table td.tdLeft {
       text-align: right;
       padding-right: 10px;
@@ -211,8 +232,8 @@ fieldset {
   margin: 0 auto; }
 
 #adminTests .topDiv {
-  width: 800px;
-  margin: 0 auto 10px;
+  width: 600px;
+  margin: 0 auto;
   overflow: hidden; }
   #adminTests .topDiv h3 {
     float: left; }
@@ -220,10 +241,8 @@ fieldset {
     float: right; }
 
 #adminTests table {
-  width: 800px;
+  width: 600px;
   margin: 0 auto; }
-  #adminTests table th:not(:first-child) {
-    padding-left: 10px; }
   #adminTests table tr th {
     border-bottom: 2px solid wheat;
     padding-bottom: .4em; }
@@ -270,6 +289,8 @@ fieldset {
   display: flex;
   flex-flow: row;
   clear: both; }
+  #editTest .editTest .topDiv.nameDiv.testName {
+    width: 250px; }
   #editTest .editTest .leftDiv {
     margin: 4px;
     padding: 5px;
@@ -284,23 +305,35 @@ fieldset {
     flex: 3 1 80%;
     order: 2; }
     #editTest .editTest .rightDiv table {
-      width: 600px;
-      margin: 0 auto; }
+      width: 100%;
+      margin: 0 auto;
+      table-layout: fixed; }
       #editTest .editTest .rightDiv table tr th {
         border-bottom: 2px solid wheat;
         padding-bottom: .4em; }
         #editTest .editTest .rightDiv table tr th:not(:first-child) {
           text-align: center; }
+        #editTest .editTest .rightDiv table tr th.quest {
+          width: 90%; }
+        #editTest .editTest .rightDiv table tr th.edit {
+          width: 5%; }
+        #editTest .editTest .rightDiv table tr th.del {
+          width: 5%; }
       #editTest .editTest .rightDiv table tr:nth-child(2) td {
         padding-top: 10px; }
-      #editTest .editTest .rightDiv table tr td:not(:first-child) {
-        text-align: center; }
-      #editTest .editTest .rightDiv table tr td.name {
-        width: 50%; }
-      #editTest .editTest .rightDiv table tr td.time {
-        width: 20%; }
-      #editTest .editTest .rightDiv table tr td.tdn {
-        width: 15%; }
+      #editTest .editTest .rightDiv table tr td {
+        max-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap; }
+        #editTest .editTest .rightDiv table tr td:not(:first-child) {
+          text-align: center; }
+        #editTest .editTest .rightDiv table tr td.name {
+          width: 50%; }
+        #editTest .editTest .rightDiv table tr td.time {
+          width: 20%; }
+        #editTest .editTest .rightDiv table tr td.tdn {
+          width: 15%; }
 
 #editTest header,
 #editTest footer {
@@ -311,3 +344,22 @@ fieldset {
   border: 1px solid #eebb55;
   border-radius: 7pt;
   background: #ffeebb; }
+
+#createTest {
+  width: 30%;
+  margin: 0 auto;
+  padding: 30px;
+  overflow: hidden; }
+  #createTest button {
+    float: right; }
+  #createTest h2 {
+    text-align: center;
+    margin-bottom: 50px; }
+  #createTest h2 small {
+    font-weight: normal;
+    color: #888;
+    display: block; }
+  #createTest p {
+    font-size: 12pt; }
+  #createTest .group {
+    margin-bottom: 15px; }

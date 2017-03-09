@@ -1,0 +1,51 @@
+<form name="questForm" class="addQuest jumbotron" jh-Submit="" novalidate>
+	<div class="directions">
+		<div class="bold">Directions:</div>
+		<div>Enter your question and the corresponding answers. Then select the button to the right of the correct answer</div>
+	</div>
+	<table>
+		<tr class="spaceUnder">
+			<th class="th1"></th>
+			<th class="th2">
+				<div class="testname bold">
+					<span>For Test:</span>
+					<span>{{test.name}}</span>
+					<span> - Question No: </span>
+					<span>{{questNum + 1}}</span>
+				</div>
+			</th>
+			<th class="th1">Correct</th>
+		</tr>
+		<tr class="spaceUnder">
+			<td class='tdLeft'>Question</td>
+			<td><textarea class="form-control" name="quest" type="text" ng-model="quest.question" ng-class="{'has-error': questForm.quest.$invalid}" ng-minlength="25" required /></td>
+			<td class='tdRight'></td>
+		</tr>
+		<tr class="group">
+			<td class='tdLeft'>Answer #1</td>
+			<td class='tdCenter'><input class="form-control" name="ans1" type='text' ng-model='quest.answer_1' ng-class="{'has-error': questForm.ans1.$invalid}" required /></td>
+			<td class='tdRight'><input type="radio" name="correct" ng-model="quest.correct_ans" value="1" ng-required="!quest.correct_ans" /></td>
+		</tr>
+		<tr>
+			<td class='tdLeft'>Answer #2</td>
+			<td class='tdCenter'><input class="form-control" name="ans2" type='text' ng-model='quest.answer_2' ng-class="{'has-error': questForm.ans2.$invalid}" required /></td>
+			<td class='tdRight'><input type="radio" name="correct" ng-model="quest.correct_ans" value="2" ng-required="!quest.correct_ans" /></td>
+		</tr>
+		<tr>
+			<td class='tdLeft'>Answer #3</td>
+			<td class='tdCenter'><input class="form-control" type='text' ng-model='quest.answer_3' ng-required="!quest.correct_ans" /></td>
+			<td class='tdRight'><input type="radio" name="correct" ng-model="quest.correct_ans" value="3" /></td>
+		</tr>
+		<tr>
+			<td class='tdLeft'>Answer #4</td>
+			<td class='tdCenter'><input class="form-control" type='text' ng-model='quest.answer_4' ng-required="!quest.correct_ans" /></td>
+			<td class='tdRight'><input type="radio" name="correct" ng-model="quest.correct_ans" value="4" /></td>
+		</tr>
+	</table>
+	<hr>
+	<div class="btns">
+		<button type="button" class="btn btn-success" ng-click="finished()" ng-class="{ 'btnDisabled' : questForm.$invalid && !questForm.$pristine }" ng ng-disabled="questForm.$invalid">Finish</button>
+		<button type="button" class="btn btn-success" ng-click="next()" ng-class="{ 'btnDisabled' : questForm.$invalid && !questForm.$pristine }" ng-disabled="questForm.$invalid || (questNum == (numQuests-1))">Next</button>
+		<button type="button" class="btn btn-success" ng-click="prev()" ng-show="questNum > 0">Previous</button>
+	</div>
+</form>

@@ -1,6 +1,11 @@
-<form id="createTest" name="createTest" action="">
-	<div class="mdl-textfield mdl-js-textfield">
-    <input class="mdl-textfield__input" type="text" id="testName"/>
-    <label class="mdl-textfield__label" for="username">Test Name:</label>
-  </div>
+<form id="createTest" name="createTestForm" class="jumbotron">
+	<h3>Create a Test</h3>
+	<p>A test must have at least 10 questions.</p>
+    <div class="group">
+      <input class="form-control" name="name" type="text" placeholder="Name of test" ng-model="test.name" ng-class="{'has-error': createTestForm.name.$invalid}" ng-minlength="5" required>
+    </div>
+    <div class="group">
+      <input class="form-control" name="length" type="text" placeholder="Minutes allowed" ng-model="test.time" ng-class="{'has-error': createTestForm.length.$invalid}" ng-minlength="2" required>
+    </div>
+		<button class="btn btn-success" ng-click="next()" ng-class="{ 'btnDisabled': createTestForm.$invalid && !createTestForm.$pristine }" ng-disabled="createTestForm.$invalid">Next</button>
 </form>

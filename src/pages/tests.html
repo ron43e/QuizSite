@@ -1,134 +1,29 @@
-<div class="testing">
-	<select name="testName" id="testName" ng-options="test as test.name for test in tests" ng-model="selected"></select>
+<form id="adminTests" name="adminTests" action="">
+<div class="topDiv">
+		<h3 class="center">Tests</h3>
+		<button class="btn btn-success" ng-click="addTest()"><i class="glyphicon glyphicon-plus"></i> Add Test</button>
 </div>
+<div style="clear: both;">
 
-<table width="100%" border="0" cellpadding="3" cellspacing="0" bgcolor="#FFFFFF">
-  <tr>
-    <td width="25%"><font color="#666666" size="-1" face="Verdana, Arial, Helvetica, sans-serif">Directions:</font></td>
-    <td width="25%"><font color="#666666" size="-1" face="Verdana, Arial, Helvetica, sans-serif">&nbsp;</font></td>
-    <td width="25%"><font color="#666666" size="-1" face="Verdana, Arial, Helvetica, sans-serif">&nbsp;</font></td>
-  </tr>
-  <tr valign="top">
-    <td width="25%"><font color="#666666" size="-2" face="Verdana, Arial, Helvetica, sans-serif">1.
-      Answer the questions below by clicking the button next to the best answer
-      choice or typing your correct answer. Each question's answers are in grey.</font></td>
-    <td width="25%"><font color="#666666" size="-2" face="Verdana, Arial, Helvetica, sans-serif">2.
-      At the end of every page click the next button to move forward to the next
-      page. <br>
-      DO NOT HIT THE BROWSER'S BACK BUTTON!</font></td>
-    <td width="25%"><font color="#666666" size="-2" face="Verdana, Arial, Helvetica, sans-serif">3.
-      On the last page of the Quiz you will be able to see which questions are
-      unanswered, are answered and have been flagged.</font></td>
-  </tr>
-</table>
-<table width="100%" cellpadding="0" cellspacing="0">
-  <tr>
-    <td height="30" valign="bottom"><font color="#999999" size="-2" face="Verdana, Arial, Helvetica, sans-serif">&nbsp;questions:</font></td>
-  </tr>
-  <tr>
-    <td height="1" bgcolor="#999999"></td>
-  </tr>
-</table>
-
-					   <br> <br>
-<table width="100%" border="0" cellpadding="3" cellspacing="0" bgcolor="#FFFFFF">
-  <tr>
-    <td valign="top"><img src="/images/spacer.gif" width="1" height="1"></td>
-    <td colspan="2" valign="top"><font color="#666666" size="-2" face="Verdana, Arial, Helvetica, sans-serif"></font></td>
-  </tr>
-  <tr>
-    <td width="1%" valign="top" nowrap><font size="+1" face="Arial, Helvetica, sans-serif"><strong><a name="1">1</a>.</strong></font><br>
-      <em><font size="-1" face="Verdana, Arial, Helvetica, sans-serif">1 pts.</font></em></td>
-    <td colspan="2" valign="top"><font size="-1" face="Verdana, Arial, Helvetica, sans-serif">What is today's date</font>
-    <font color="#666666" size="-2" face="Verdana, Arial, Helvetica, sans-serif">&nbsp;&nbsp;</font>
-       </td>
-  </tr>
-
-  <!--START for multiple choice-->
-
-    <tr bgcolor="eeeeee">
-      <td width="1%" align="right" valign="top"> <input type="radio" name="checkbox" value="checkbox"></td>
-      <td width="1%" valign="top"><font size="-1" face="Verdana, Arial, Helvetica, sans-serif">A.</font></td>
-      <td valign="top"><font size="-1" face="Verdana, Arial, Helvetica, sans-serif">12/92 </font>
-
-      </td>
-      </tr>
-
-    <tr bgcolor="eeeeee">
-      <td width="1%" align="right" valign="top"> <input type="radio" name="checkbox" value="checkbox"></td>
-      <td width="1%" valign="top"><font size="-1" face="Verdana, Arial, Helvetica, sans-serif">B.</font></td>
-      <td valign="top"><font size="-1" face="Verdana, Arial, Helvetica, sans-serif">01/13 </font>
-
-      </td>
-      </tr>
-
-    <tr bgcolor="eeeeee">
-      <td width="1%" align="right" valign="top"> <input type="radio" name="checkbox" value="checkbox"></td>
-      <td width="1%" valign="top"><font size="-1" face="Verdana, Arial, Helvetica, sans-serif">C.</font></td>
-      <td valign="top"><font size="-1" face="Verdana, Arial, Helvetica, sans-serif">02/17 </font>
-
-      </td>
-      </tr>
-
-    <!--END for multiple choice-->
-
-
-
-  <tr valign="middle" bgcolor="eeeeee">
-    <td align="right"> <input type="checkbox" name="checkbox" value="checkbox">
-    </td>
-    <td colspan="2"><img src="../images/flag.gif" alt="check the box to the left to flag this question" width="15" height="15" align="absmiddle">
-      <font size="-2" face="Verdana, Arial, Helvetica, sans-serif">Flag this question
-      for later review</font></td>
-  </tr>
-  <br>
-</table>
-
-<table width="100%" cellpadding="0" cellspacing="0">
-  <tr>
-    <td height="80" valign="bottom">&nbsp;</td>
-  </tr>
-  <tr>
-    <td height="2" bgcolor="#999999"></td>
-  </tr>
-</table>
-
-					   <br> <br>
-<table width="100%" border="0" cellpadding="3" cellspacing="0" bgcolor="#FFFFFF">
-  <tr>
-    <td valign="top"><img src="/images/spacer.gif" width="1" height="1"></td>
-    <td colspan="2" valign="top"><font color="#666666" size="-2" face="Verdana, Arial, Helvetica, sans-serif"></font></td>
-  </tr>
-  <tr>
-    <td width="1%" valign="top" nowrap><font size="+1" face="Arial, Helvetica, sans-serif"><strong><a name="2">2</a>.</strong></font><br>
-      <em><font size="-1" face="Verdana, Arial, Helvetica, sans-serif">1 pts.</font></em></td>
-    <td colspan="2" valign="top"><font size="-1" face="Verdana, Arial, Helvetica, sans-serif">Is it cloudy today</font>
-    <font color="#666666" size="-2" face="Verdana, Arial, Helvetica, sans-serif">&nbsp;&nbsp;</font>
-       </td>
-  </tr>
-
-
-    <!--START for TRUE/FALSE -->
-
-  <tr bgcolor="eeeeee">
-    <td align="right" valign="top"> <input type="radio" name="radiobutton" value="radiobutton" ></td>
-    <td colspan="2" valign="top"><font size="-1" face="Verdana, Arial, Helvetica, sans-serif">True</font></td>
-  </tr>
-
-  <tr bgcolor="eeeeee">
-    <td align="right" valign="top"> <input type="radio" name="radiobutton" value="radiobutton" ></td>
-    <td colspan="2" valign="top"><font size="-1" face="Verdana, Arial, Helvetica, sans-serif">False</font></td>
-  </tr>
-
-  <!--END for TRUE/FALSE-->
-
-
-  <tr valign="middle" bgcolor="eeeeee">
-    <td align="right"> <input type="checkbox" name="checkbox" value="checkbox">
-    </td>
-    <td colspan="2"><img src="../images/flag.gif" alt="check the box to the left to flag this question" width="15" height="15" align="absmiddle">
-      <font size="-2" face="Verdana, Arial, Helvetica, sans-serif">Flag this question
-      for later review</font></td>
-  </tr>
-  <br>
-</table>
+</div>
+	<table>
+		<tr>
+			<th class="name">Test name</th>
+			<th class="time">Length</th>
+			<th class="pass">Passing Grade</th>
+			<th class="date">Last Taken</th>
+			<th class="date">First Taken</th>
+			<th class="tdn">Edit</th>
+			<th class="tdn">Delete</th>
+		</tr>
+		<tr ng-repeat="test in tests | orderBy: 'name'">
+			<td>{{test.name}}</td>
+			<td>{{test.minutes}}</td>
+			<td>{{test.passing_grade}}</td>
+			<td>{{test.last_taken}}</td>
+			<td>{{test.first_taken}}</td>
+			<td><span class="glyphicon glyphicon-edit" ng-click="editTest(test)" green-hover></span></td>
+			<td><span class="glyphicon glyphicon-trash" ng-click="deleteTest(test)" green-hover></span></td>
+		</tr>
+	</table>
+</form>
