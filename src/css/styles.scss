@@ -241,7 +241,9 @@
  // addQuest.html / quest.html
  //
  .addQuest {
-     width: 100%;
+     width: 50%;
+     min-width: 600px;
+     padding: 20px;
      margin: 0 auto;
      color: $darkblue;
      overflow: hidden;
@@ -513,4 +515,5 @@
      .group {
          margin-bottom: 15px;
      }
+
  }

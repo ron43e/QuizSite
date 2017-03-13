@@ -1,11 +1,17 @@
-<div id="editTest" class="container">
+<form id="editTest" name="testForm" class="container form-inline">
 	<div class="topDiv">
-		<div class="nameDiv">Test Name: <input class="testName" type="text" ng-model="curTest.name" /></div>
-		<div class="doneDiv"><button class="btn btn-success" ng-click="done()"><i class="glyphicon glyphicon-ok"></i>  Done</button></div>
+		<div class="nameDiv">
+			<label for="name">Test Name: </label>
+			<input id="name" class="testName form-control" type="text" name="name" ng-model="test.name" ng-class="{'has-error': testForm.name.$invalid}" ng-minlength="5" required />
+		</div>
+		<div class="doneDiv">
+			<button class="btn btn-success" ng-click="addQuest()" ng-class="{ 'btnDisabled' : testForm.$invalid }" ng-disabled="testForm.$invalid"><i class="glyphicon glyphicon-plus"></i>  Add Questions</button>
+			<button class="btn btn-success" ng-click="done()"><i class="glyphicon glyphicon-ok"></i>  Done</button>
+		</div>
 	</div>
 	<div class="editTest">
 		<div class="leftDiv">
-			<div>Length: <input class="minutes" type="text" ng-model="curTest.minutes_allowed" /></div>
+			<div>Length: <input class="minutes form-control" name="minutes" type="text" ng-model="test.minutes_allowed" ng-class="{'has-error': testForm.time.$invalid}" ng-minlength="2" required /></div>
 			<div>First taken: {{curTest.first_taken}}</div>
 			<div>Last taken: {{curTest.last_taken}}</div>
 		</div>
@@ -24,7 +30,7 @@
 			</table>
 		</div>
 	</div>
-</div>
+</form>
 
 <!--<div id='main'>
 	<article>article</article>

@@ -18,7 +18,7 @@ app.factory('data', ['$http', function ($http) {
 		setTests: function (testList) {
 			tests = testList;
 		},
-		getTests: function() {
+		getTests: function () {
 			return tests;
 		},
 		readDBQuest: function () {
@@ -38,16 +38,16 @@ app.factory('data', ['$http', function ($http) {
 		getQuestions: function () {
 			return questions;
 		},
-		updateQuest: function(question) {
+		updateQuest: function (question) {
 
 		},
-		addQuest: function(question) {
+		addQuest: function (question) {
 
 		},
-		setCurQuest: function(questNum) {
+		setCurQuest: function (questNum) {
 			curQuestNum = questNum;
 		},
-		getCurQuest: function() {
+		getCurQuest: function () {
 			return curQuestNum;
 		}
 	}
@@ -81,6 +81,24 @@ app.factory('Auth', function () {
 	}
 })
 
+// Confirm dialog
+//
+app.factory('confirmDlg', function ($mdDialog) {
+	//Include a reference to the user object we're deleting
+	return function (item, title, content, okBtn, canBtn) {
+		//Call the confirm() function to configure the confirmation dialog
+		var confirm = $mdDialog.confirm()
+			.title(title)
+			.content(content + '?')
+			.ariaLabel('')
+			.ok(okBtn)
+			.cancel(canBtn);
+		return $mdDialog.show(confirm);
+	}
+})
+
+
+
 // Use mdDialog and verify that user wants to delete item
 //
 app.factory('verifyDelete', function ($mdDialog) {
@@ -106,15 +124,16 @@ app.factory('prompt', function ($mdDialog) {
 			.placeholder(placehldr)
 			.ariaLabel(placehldr)
 			.initialValue(initValue)
-			.targetEvent(ev)
+			//			.targetEvent(ev)
 			.ok(okStr)
 			.cancel(canStr);
 
-		// $mdDialog.show(confirm).then(function (result) {
+		return $mdDialog.show(confirm);
+		//.then(function (result) {
 		//   $scope.status = 'You decided to name your dog ' + result + '.';
-		// }, function () {
+		//}, function () {
 		//   $scope.status = 'You didn\'t name your dog.';
-		// });
+		//});
 	};
 })
 

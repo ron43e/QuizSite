@@ -1,3 +1,6 @@
+// TODO: body does not include all questions on editTest.html
+//
+
 // Initialize Firebase
 var config = {
 	apiKey: "AIzaSyBo_GwY19BYQ6HTSdhLkXwXayEjoQrCN60",
@@ -74,34 +77,99 @@ app.controller('loginCtrl', function ($rootScope, $scope, Auth, $location) {
 
 // List Tests
 //
-app.controller('testsCtrl', function ($scope, $location, data, tests) {
+app.controller('testsCtrl', function ($scope, $location, data, tests, verifyDelete, prompt, $mdDialog) {
 	$scope.tests = tests.data;
+
+	// add a test
 	$scope.addTest = function () {
 		$location.path('/createTest');
 	};
+	// edit a test
 	$scope.editTest = function (test) {
 		data.curTest = test;
 		$location.path('/editTest');
 	};
+	// delete a test
+	$scope.deleteTest = function (test) {
+		// var msg = prompt('title', 'content', 'placehldr', 'initValue', 'okStr', 'canStr')
+		// 	.then(function (result) {
+		// 		console.log(result);
+		// 	});
+		var msg = verifyDelete(test.name)
+			.then(function (result) {
+				console.log(result);
+				if (result == true) {
+
+				}
+			});
+	};
+
 });
 
 // Add Test
 //
-app.controller('createTestCtrl', function ($scope, $location, data) {
+app.controller('createTestCtrl', function ($scope, $location, data, $mdDialog, confirmDlg) {
 	$scope.test = {
 		name: '',
 		time: ''
 	};
+	$scope.questions = [];
 	// next button clicked
-	$scope.next = function () {
-		data.curTest = $scope.text;
-		$location.path('/addQuest');
+	$scope.addQuest = function () {
+		data.curTest = $scope.test;
+		showDialog();
+		// $location.path('/addQuest');
 	};
+	// done button clicked
+	$scope.done = function() {
+		if ($scope.questions.length == 0) {
+			confirmDlg('', 'Important!', 'You must add questions. If you leave you will lose what you have entered', 'Leave', 'Cancel')
+				.then(function(results) {
+					console.log(results);
+				});
+		}
+	};
+	// show dialog to get questions
+	function showDialog($event) {
+		var parentEl = angular.element(document.body);
+		$mdDialog.show({
+			parent: parentEl,
+			targetEvent: $event,
+			templateUrl: 'pages/quest.html',
+			// '<md-dialog aria-label="List dialog">' +
+			// 	'  <md-dialog-content>' +
+			// 	'    <md-list>' +
+			// 	'      <md-list-item ng-repeat="item in items">' +
+			// 	'       <p>Number {{item}}</p>' +
+			// 	'      ' +
+			// 	'    </md-list-item></md-list>' +
+			// 	'  </md-dialog-content>' +
+			// 	'  <md-dialog-actions>' +
+			// 	'    <md-button ng-click="closeDialog()" class="md-primary">' +
+			// 	'      Close Dialog' +
+			// 	'    </md-button>' +
+			// 	'  </md-dialog-actions>' +
+			// 	'</md-dialog>',
+			locals: {
+				items: $scope.items
+			},
+			controller: DialogController
+		});
+
+		function DialogController($scope, $mdDialog, items) {
+			$scope.items = items;
+			$scope.closeDialog = function () {
+				$mdDialog.hide();
+			}
+		}
+	}
 });
 
+// edit a test
+//
 app.controller('editTestCtrl', function ($scope, $location, data) {
 	$scope.tests = data.getTests();
-	$scope.curTest = data.curTest;
+	$scope.test = data.curTest;
 	$scope.questions = data.getQuestions();
 	// edit a question
 	$scope.edit = function (quest) {
@@ -124,18 +192,30 @@ app.controller('editQuestCtrl', function ($scope, $location, data) {
 	$scope.test = data.curTest;
 	// next button clicked
 	$scope.next = function () {
-		// TODO: save question
+		if ($scope.questForm.$dirty) {
+			// TODO: save question
+			console.log('need to save');
+			$scope.questForm.$setPristine();
+		}
 		$scope.questNum = ++data.curQuestNum;
 		$scope.quest = quests[$scope.questNum];
 	};
 	// previous button
 	$scope.prev = function () {
-		// TODO: save question
+		if ($scope.questForm.$dirty) {
+			// TODO: save question
+			console.log('need to save');
+			$scope.questForm.$setPristine();
+		}
 		$scope.questNum = --data.curQuestNum;
 		$scope.quest = quests[$scope.questNum];
 	};
 	$scope.finished = function () {
-		// TODO: save question
+		if ($scope.questForm.$dirty) {
+			// TODO: save question
+			console.log('need to save');
+			$scope.questForm.$setPristine();
+		}
 	};
 });
 
@@ -143,10 +223,12 @@ app.controller('editQuestCtrl', function ($scope, $location, data) {
 //
 app.controller('addQuestCtrl', function ($scope, $location, data) {
 	$scope.questNum = 1;
+	$scope.quest;
 	$scope.test = data.curTest;
 	$scope.next = function (quest) {
 		// save question
 		$scope.questNum++;
+
 	};
 	$scope.prev = function (quest) {
 		if ($scope.questNum > 1) {
