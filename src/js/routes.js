@@ -32,7 +32,7 @@ app.config(function ($routeProvider, $locationProvider) {
       }
     })
     .when("/createTest", {
-      templateUrl: "pages/createTest.html",
+      templateUrl: "pages/editTest.html",
       controller: "createTestCtrl"
     })
     .when("/addQuest", {

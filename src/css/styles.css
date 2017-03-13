@@ -181,7 +181,9 @@ fieldset {
       color: #1abc9c; }
 
 .addQuest {
-  width: 100%;
+  width: 50%;
+  min-width: 600px;
+  padding: 20px;
   margin: 0 auto;
   color: #34495e;
   overflow: hidden; }
@@ -262,88 +264,87 @@ fieldset {
 #adminTests .centerImg {
   text-align: center; }
 
-#editTest div {
-  padding: 10px; }
-
-#editTest .topDiv {
-  min-height: 50px;
-  border-bottom: 1px solid #8888bb;
-  overflow: hidden;
-  padding: 0;
-  position: relative; }
-  #editTest .topDiv div.nameDiv {
+#editTest {
+  width: 100%; }
+  #editTest div {
+    padding: 10px; }
+  #editTest .topDiv {
+    min-height: 50px;
+    border-bottom: 1px solid #8888bb;
+    overflow: hidden;
     padding: 0;
-    position: absolute;
-    left: 0;
-    bottom: 10px; }
-  #editTest .topDiv div.doneDiv {
-    padding: 0;
-    position: absolute;
-    right: 0;
-    bottom: 10px; }
-
-#editTest .editTest {
-  min-height: 800px;
-  margin: 0px;
-  padding: 0px;
-  display: flex;
-  flex-flow: row;
-  clear: both; }
-  #editTest .editTest .topDiv.nameDiv.testName {
-    width: 250px; }
-  #editTest .editTest .leftDiv {
+    position: relative; }
+    #editTest .topDiv div.nameDiv {
+      padding: 0;
+      position: absolute;
+      left: 0;
+      bottom: 10px; }
+    #editTest .topDiv div.doneDiv {
+      padding: 0;
+      position: absolute;
+      right: 0;
+      bottom: 10px; }
+  #editTest .editTest {
+    min-height: 800px;
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    flex-flow: row;
+    clear: both; }
+    #editTest .editTest .topDiv.nameDiv.testName {
+      width: 250px; }
+    #editTest .editTest .leftDiv {
+      margin: 4px;
+      padding: 5px;
+      border-right: 1px solid #8888bb;
+      flex: 1 6 20%;
+      order: 1; }
+      #editTest .editTest .leftDiv input.minutes {
+        width: 50px; }
+    #editTest .editTest .rightDiv {
+      margin: 4px;
+      padding: 15px;
+      flex: 3 1 80%;
+      order: 2; }
+      #editTest .editTest .rightDiv table {
+        width: 100%;
+        margin: 0 auto;
+        table-layout: fixed; }
+        #editTest .editTest .rightDiv table tr th {
+          border-bottom: 2px solid wheat;
+          padding-bottom: .4em; }
+          #editTest .editTest .rightDiv table tr th:not(:first-child) {
+            text-align: center; }
+          #editTest .editTest .rightDiv table tr th.quest {
+            width: 90%; }
+          #editTest .editTest .rightDiv table tr th.edit {
+            width: 5%; }
+          #editTest .editTest .rightDiv table tr th.del {
+            width: 5%; }
+        #editTest .editTest .rightDiv table tr:nth-child(2) td {
+          padding-top: 10px; }
+        #editTest .editTest .rightDiv table tr td {
+          max-width: 0;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap; }
+          #editTest .editTest .rightDiv table tr td:not(:first-child) {
+            text-align: center; }
+          #editTest .editTest .rightDiv table tr td.name {
+            width: 50%; }
+          #editTest .editTest .rightDiv table tr td.time {
+            width: 20%; }
+          #editTest .editTest .rightDiv table tr td.tdn {
+            width: 15%; }
+  #editTest header,
+  #editTest footer {
+    display: block;
     margin: 4px;
     padding: 5px;
-    border-right: 1px solid #8888bb;
-    flex: 1 6 20%;
-    order: 1; }
-    #editTest .editTest .leftDiv input.minutes {
-      width: 50px; }
-  #editTest .editTest .rightDiv {
-    margin: 4px;
-    padding: 15px;
-    flex: 3 1 80%;
-    order: 2; }
-    #editTest .editTest .rightDiv table {
-      width: 100%;
-      margin: 0 auto;
-      table-layout: fixed; }
-      #editTest .editTest .rightDiv table tr th {
-        border-bottom: 2px solid wheat;
-        padding-bottom: .4em; }
-        #editTest .editTest .rightDiv table tr th:not(:first-child) {
-          text-align: center; }
-        #editTest .editTest .rightDiv table tr th.quest {
-          width: 90%; }
-        #editTest .editTest .rightDiv table tr th.edit {
-          width: 5%; }
-        #editTest .editTest .rightDiv table tr th.del {
-          width: 5%; }
-      #editTest .editTest .rightDiv table tr:nth-child(2) td {
-        padding-top: 10px; }
-      #editTest .editTest .rightDiv table tr td {
-        max-width: 0;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap; }
-        #editTest .editTest .rightDiv table tr td:not(:first-child) {
-          text-align: center; }
-        #editTest .editTest .rightDiv table tr td.name {
-          width: 50%; }
-        #editTest .editTest .rightDiv table tr td.time {
-          width: 20%; }
-        #editTest .editTest .rightDiv table tr td.tdn {
-          width: 15%; }
-
-#editTest header,
-#editTest footer {
-  display: block;
-  margin: 4px;
-  padding: 5px;
-  min-height: 100px;
-  border: 1px solid #eebb55;
-  border-radius: 7pt;
-  background: #ffeebb; }
+    min-height: 100px;
+    border: 1px solid #eebb55;
+    border-radius: 7pt;
+    background: #ffeebb; }
 
 #createTest {
   width: 30%;

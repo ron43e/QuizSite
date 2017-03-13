@@ -1,3 +1,5 @@
+<md-dialog class="addQuest">
+	<md-dialog-content>
 		<form name="questForm" jh-Submit="" novalidate>
 			<div class="directions">
 				<div class="bold">Directions:</div>
@@ -46,6 +48,7 @@
 				</tr>
 			</table>
 			<hr>
+	</md-dialog-content>
 	<div class="btns">
 		<button type="button" class="btn btn-success" ng-click="finished()" ng-class="{ 'btnDisabled' : questForm.$invalid && !questForm.$pristine }"
 		  ng ng-disabled="questForm.$invalid">Finish</button>
@@ -54,3 +57,4 @@
 		<button type="button" class="btn btn-success" ng-click="prev()" ng-show="questNum > 1">Previous</button>
 	</div>
 	</form>
+</md-dialog>
