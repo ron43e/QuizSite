@@ -21,6 +21,24 @@ app.factory('data', ['$http', function ($http) {
 		getTests: function () {
 			return tests;
 		},
+		deleteTest: function(id) {
+			var promise = $http.get("php/delTest.php?id=" + id)
+				.success(function(results) {
+					return results;
+				});
+				return promise;
+			// var promise = $http({
+			// 	method: 'POST',
+			// 	url: 'php/delTest.php',
+			// 	data: { ID: id },
+			// 	headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+			// });
+			// promise.success(function (data, status, headers, conf) {
+			// 	tests = data;
+			// 	return data;
+			// });
+			// return promise;
+		},
 		readDBQuest: function () {
 			var promise = $http({
 				method: 'GET',

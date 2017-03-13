@@ -99,7 +99,12 @@ app.controller('testsCtrl', function ($scope, $location, data, tests, verifyDele
 			.then(function (result) {
 				console.log(result);
 				if (result == true) {
-
+					// delete test
+					var testID = test.id;
+					data.deleteTest(testID)
+						.then(function (results) {
+							console.log(results);
+						})
 				}
 			});
 	};
@@ -121,10 +126,10 @@ app.controller('createTestCtrl', function ($scope, $location, data, $mdDialog, c
 		// $location.path('/addQuest');
 	};
 	// done button clicked
-	$scope.done = function() {
+	$scope.done = function () {
 		if ($scope.questions.length == 0) {
 			confirmDlg('', 'Important!', 'You must add questions. If you leave you will lose what you have entered', 'Leave', 'Cancel')
-				.then(function(results) {
+				.then(function (results) {
 					console.log(results);
 				});
 		}
@@ -167,7 +172,7 @@ app.controller('createTestCtrl', function ($scope, $location, data, $mdDialog, c
 
 // edit a test
 //
-app.controller('editTestCtrl', function ($scope, $location, data) {
+app.controller('editTestCtrl', function ($scope, $location, data, confirmDlg) {
 	$scope.tests = data.getTests();
 	$scope.test = data.curTest;
 	$scope.questions = data.getQuestions();
@@ -178,7 +183,15 @@ app.controller('editTestCtrl', function ($scope, $location, data) {
 	}
 	// finished
 	$scope.done = function () {
-		$location.path('/tests')
+		if ($scope.testForm.$invalid) { // check to see if valid form
+			confirmDlg('', 'Important!', 'If you leave you will lose what you have entered', 'Leave', 'Cancel')
+				.then(function (results) {
+					console.log(results);
+					$location.path('/tests')
+				});
+		} else { // form is valid
+			$location.path('/tests')
+		}
 	}
 });
 

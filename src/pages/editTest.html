@@ -11,7 +11,7 @@
 	</div>
 	<div class="editTest">
 		<div class="leftDiv">
-			<div>Length: <input class="minutes form-control" name="minutes" type="text" ng-model="test.minutes_allowed" ng-class="{'has-error': testForm.time.$invalid}" ng-minlength="2" required /></div>
+			<div>Length: <input class="minutes form-control" name="minutes" type="text" ng-model="test.minutes_allowed" ng-class="{'has-error': testForm.minutes.$invalid}" ng-minlength="2" required /></div>
 			<div>First taken: {{curTest.first_taken}}</div>
 			<div>Last taken: {{curTest.last_taken}}</div>
 		</div>
